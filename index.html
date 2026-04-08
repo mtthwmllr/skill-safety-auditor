@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skill Safety Auditor — Audit Claude Code skills before you install them</title>
+  <meta name="description" content="A free Claude Code skill that audits other skills for security risks before or after download. Checks for credential theft, shell access, prompt injection, and source provenance.">
+  <!-- No external CSS dependencies. System fonts only. -->
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --surface: #161616;
+      --surface-2: #1e1e1e;
+      --border: #2a2a2a;
+      --border-bright: #3a3a3a;
+      --text: #e8e8e8;
+      --text-muted: #888;
+      --text-dim: #555;
+      --accent: #f0c040;
+      --accent-dim: #b89020;
+      --red: #e05050;
+      --yellow: #f0c040;
+      --green: #50c878;
+      --mono: "SF Mono", "Fira Mono", "Cascadia Mono", "Consolas", "Menlo", monospace;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Layout */
+    .container {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 72px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    section:last-of-type { border-bottom: none; }
+
+    /* Typography */
+    h1 {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: -0.01em;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+    }
+
+    p { color: var(--text); margin-bottom: 16px; }
+    p:last-child { margin-bottom: 0; }
+
+    strong { color: #fff; font-weight: 600; }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Hero */
+    #hero {
+      padding: 96px 0 80px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin: 20px 0 36px;
+      max-width: 560px;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 11px 22px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+
+    .btn:hover { opacity: 0.85; text-decoration: none; }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0d0d0d;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border-bright);
+    }
+
+    .btn-secondary:hover { border-color: var(--text-muted); }
+
+    /* Problem */
+    .risk-list {
+      list-style: none;
+      margin: 24px 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .risk-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+
+    .risk-icon {
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* How it works */
+    .modes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    @media (max-width: 560px) { .modes { grid-template-columns: 1fr; } }
+
+    .mode-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .mode-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .mode-card h4 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .mode-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .checks-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    @media (max-width: 560px) { .checks-grid { grid-template-columns: 1fr; } }
+
+    .check-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 16px;
+    }
+
+    .check-item h4 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .check-item p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .severity-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+
+    .severity-table th {
+      text-align: left;
+      padding: 10px 14px;
+      background: var(--surface-2);
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 0.78rem;
+      border: 1px solid var(--border);
+    }
+
+    .severity-table td {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    .severity-table tr:nth-child(even) td { background: var(--surface); }
+
+    /* Sample report */
+    .report-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 28px 28px 24px;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      line-height: 1.7;
+      color: var(--text);
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    .report-label {
+      font-family: var(--sans);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      margin-top: 12px;
+      font-style: italic;
+    }
+
+    .verdict-caution { color: var(--yellow); font-weight: 700; }
+    .verdict-safe { color: var(--green); font-weight: 700; }
+    .verdict-danger { color: var(--red); font-weight: 700; }
+
+    /* Irony / self-audit */
+    .self-audit-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 24px;
+      margin-top: 24px;
+    }
+
+    .self-audit-block p { font-size: 0.9rem; color: var(--text-muted); }
+    .self-audit-block p:last-child { margin-bottom: 0; }
+
+    /* Install */
+    .steps { display: flex; flex-direction: column; gap: 20px; margin-top: 24px; }
+
+    .step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      background: var(--surface-2);
+      border: 1px solid var(--border-bright);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .step-body { flex: 1; }
+    .step-body p { font-size: 0.9rem; margin-bottom: 8px; }
+
+    code {
+      font-family: var(--mono);
+      font-size: 0.85em;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: var(--accent);
+    }
+
+    pre {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 14px 16px;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--text);
+      overflow-x: auto;
+      margin-top: 8px;
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .footer-links a:hover { color: var(--text); }
+
+    .footer-note {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 32px 0;
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <p class="eyebrow">Free Claude Code skill — v1.0.0</p>
+    <h1>You're installing Claude Code skills blind.<br>Here's how to stop.</h1>
+    <p class="hero-sub">
+      <code>skill-safety-auditor</code> reviews any Claude Code skill for security risks before or after you download it — credential theft, shell access, prompt injection, and more.
+    </p>
+    <div class="cta-group">
+      <a href="https://github.com/mtthwmllr/skill-safety-auditor/releases/latest/download/skill-safety-auditor.skill" class="btn btn-primary">Install the skill</a>
+      <a href="https://github.com/mtthwmllr/skill-safety-auditor" class="btn btn-secondary">View on GitHub</a>
+    </div>
+  </div>
+</section>
+
+<!-- THE PROBLEM -->
+<section id="problem">
+  <div class="container">
+    <h3>The problem</h3>
+    <h2>Skills can do a lot. That cuts both ways.</h2>
+    <p>
+      Claude Code skills are markdown files that tell Claude how to behave. Most are useful and benign. But the same mechanism that makes them powerful — the ability to instruct Claude to use tools, fetch URLs, and run scripts — also makes them a potential attack surface.
+    </p>
+    <p>
+      Most users install skills the same way they install browser extensions: by trusting the source and skipping the fine print. Research into the skills security landscape has surfaced real risks worth knowing about.
+    </p>
+    <ul class="risk-list">
+      <li>
+        <span class="risk-icon">🔑</span>
+        <span><strong>Credential theft.</strong> A skill with shell access can read environment variables, SSH keys, AWS credentials, or <code>.env</code> files — and send them off your machine without obvious signs.</span>
+      </li>
+      <li>
+        <span class="risk-icon">⌨️</span>
+        <span><strong>Shell access via markdown.</strong> Research has shown that a small number of lines in a SKILL.md file can grant effective shell access to your machine. The mechanism is simple and intentional — but it can be abused.</span>
+      </li>
+      <li>
+        <span class="risk-icon">🎭</span>
+        <span><strong>Prompt injection.</strong> Instructions embedded in a skill file can attempt to override Claude's safety behaviour, claim false permissions, or instruct Claude to conceal what it's doing from you.</span>
+      </li>
+      <li>
+        <span class="risk-icon">🪞</span>
+        <span><strong>Mirror drift.</strong> Skills distributed through aggregator mirrors may diverge from the canonical source. What you install may not match what the maintainer published.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how-it-works">
+  <div class="container">
+    <h3>How it works</h3>
+    <h2>Two modes. Fourteen checks. One report.</h2>
+
+    <div class="modes">
+      <div class="mode-card">
+        <p class="mode-label">Mode A</p>
+        <h4>Pre-download audit</h4>
+        <p>Paste a GitHub URL, install command, or marketplace link. The auditor fetches the skill files remotely and reviews them before anything touches your machine.</p>
+      </div>
+      <div class="mode-card">
+        <p class="mode-label">Mode B</p>
+        <h4>Local file audit</h4>
+        <p>Already have the files on disk? Point the auditor at a local path or <code>.skill</code> file and it reads your local copy directly.</p>
+      </div>
+    </div>
+
+    <h2>The 4 check categories</h2>
+    <div class="checks-grid">
+      <div class="check-item">
+        <h4>Frontmatter</h4>
+        <p>Declared tool access, missing permissions fields, overly broad tool lists — the metadata tells you a lot if you know what to look for.</p>
+      </div>
+      <div class="check-item">
+        <h4>Script Content</h4>
+        <p>Credential access, outbound network calls, obfuscation, persistent system modifications — direct analysis of any bundled scripts.</p>
+      </div>
+      <div class="check-item">
+        <h4>Prompt Injection</h4>
+        <p>Safety override instructions, false claims of Anthropic approval, instructions that tell Claude to hide its actions from you.</p>
+      </div>
+      <div class="check-item">
+        <h4>Source Provenance</h4>
+        <p>Anonymous maintainers, brand-new repositories, mismatches between what a skill claims to do and what it actually does.</p>
+      </div>
+    </div>
+
+    <h2>Severity levels</h2>
+    <table class="severity-table">
+      <thead>
+        <tr>
+          <th>Level</th>
+          <th>Meaning</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="verdict-danger">🔴 Critical</span></td>
+          <td>The skill contains patterns strongly associated with malicious intent.</td>
+          <td>Do not install. Consider reporting.</td>
+        </tr>
+        <tr>
+          <td><span class="verdict-caution">🟡 Warning</span></td>
+          <td>Something needs a closer look before you proceed. May be benign.</td>
+          <td>Follow the step-by-step remedy the auditor provides.</td>
+        </tr>
+        <tr>
+          <td><span class="verdict-safe">🟢 Info</span></td>
+          <td>Not a risk — just something worth knowing about the skill.</td>
+          <td>No action required.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- SAMPLE REPORT -->
+<section id="sample">
+  <div class="container">
+    <h3>Sample report</h3>
+    <h2>Real audit. Real skill. Real output.</h2>
+    <p>This is the actual output from auditing <code>hundred-million-offers</code>, a public skill from wondelai, fetched via a third-party aggregator mirror.</p>
+
+    <div class="report-block">═══════════════════════════════════════════════
+  SKILL SAFETY AUDIT REPORT
+═══════════════════════════════════════════════
+
+Skill:         hundred-million-offers
+Source:        wondelai/skills (via NeverSight/skills_feed mirror)
+Audited on:    April 8, 2026
+Scripts found: 0
+
+───────────────────────────────────────────────
+OVERALL VERDICT
+───────────────────────────────────────────────
+
+<span class="verdict-caution">🟡 PROCEED WITH CAUTION — Warnings found.</span>
+
+───────────────────────────────────────────────
+🟡 WARNINGS  (2)
+───────────────────────────────────────────────
+
+A3 — No allowed-tools Declared
+Found in: SKILL.md frontmatter
+Detail: No allowed-tools field present. Access scope undefined.
+Remedy: Check repo directly to confirm intent; request explicit
+  `allowed-tools: []` from maintainer.
+
+D1 — Fetched from Unverified Mirror
+Found in: Source provenance
+Detail: Retrieved from NeverSight/skills_feed aggregator, not
+  directly from github.com/wondelai. Mirror may diverge.
+Remedy: Verify at https://github.com/wondelai/skills directly
+  before installing.
+
+───────────────────────────────────────────────
+🟢 INFO / NOTES  (2)
+───────────────────────────────────────────────
+
+- Affiliate links present in Further Reading section
+- references/ directory not audited (markdown docs only,
+  no script references observed)
+
+───────────────────────────────────────────────
+CRITICAL ISSUES: None.
+
+REMINDER: A clean audit is not a guarantee of safety.
+═══════════════════════════════════════════════</div>
+    <p class="report-label">Full report with remedies: <a href="https://github.com/mtthwmllr/skill-safety-auditor/blob/main/audit-sample/sample-report.md">audit-sample/sample-report.md</a></p>
+  </div>
+</section>
+
+<!-- SELF-AUDIT -->
+<section id="self-audit">
+  <div class="container">
+    <h3>The irony section</h3>
+    <h2>Is the auditor itself safe?</h2>
+    <p>
+      A security tool you can't verify is just another thing to trust blindly. So here are the auditor's own checks, run against itself, in public.
+    </p>
+
+    <div class="self-audit-block">
+      <p><strong>Frontmatter.</strong> The skill declares <code>name</code>, <code>version</code>, and <code>description</code>. No <code>allowed-tools</code> field — which triggers check A3 in the auditor's own taxonomy. In practice, the skill uses two tools: <strong>Read</strong> (to review local skill files in Mode B) and <strong>web_fetch</strong> (to retrieve remote skill files in Mode A). Neither grants shell access, file write access, or credential access.</p>
+      <p><strong>Scripts.</strong> None. The <code>references/</code> directory contains two markdown files — documentation only. No <code>.py</code>, <code>.sh</code>, <code>.js</code>, or <code>.bash</code> files present. Check B1 through B6 do not apply.</p>
+      <p><strong>Prompt injection.</strong> The SKILL.md does not attempt to override Claude's safety behaviour, does not claim special Anthropic permissions, and does not instruct Claude to conceal anything from the user. Every instruction relates directly to auditing skill files.</p>
+      <p><strong>Source.</strong> Published directly by <a href="https://github.com/mtthwmllr">mtthwmllr</a> to this repository. No aggregator mirror involved.</p>
+      <p style="margin-top: 16px;"><strong>Self-audit verdict: <span class="verdict-safe">Appears Safe.</span></strong> The A3 warning (no allowed-tools declared) is the only flag. It is acknowledged and explained above. A clean audit is not a guarantee — verify the source files yourself if you want to go further.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INSTALL + USE -->
+<section id="install">
+  <div class="container">
+    <h3>Install &amp; use</h3>
+    <h2>Up and running in two steps.</h2>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <p><strong>Download the skill file</strong></p>
+          <p>Get <code>skill-safety-auditor.skill</code> from the GitHub releases page:</p>
+          <pre>curl -L https://github.com/mtthwmllr/skill-safety-auditor/releases/latest/download/skill-safety-auditor.skill -o skill-safety-auditor.skill</pre>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <p><strong>Install it</strong></p>
+          <pre>claude skills install ./skill-safety-auditor.skill</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <h2>Using the auditor</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">A</div>
+        <div class="step-body">
+          <p><strong>Pre-download audit</strong> — paste the skill's URL or install command into Claude:</p>
+          <pre>"Audit this skill before I install it: https://github.com/someuser/some-skill"</pre>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">B</div>
+        <div class="step-body">
+          <p><strong>Local audit</strong> — if you already have the files:</p>
+          <pre>"Audit the skill at ~/Downloads/some-skill/"</pre>
+        </div>
+      </div>
+    </div>
+
+    <p style="margin-top: 24px; color: var(--text-muted); font-size: 0.9rem;">
+      Claude will ask which mode you want, run the 14 checks, produce a structured report, and offer to walk you through clearing any warnings step by step.
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="https://github.com/mtthwmllr/skill-safety-auditor">GitHub</a>
+        <a href="https://github.com/mtthwmllr/skill-safety-auditor/issues">Issues</a>
+        <a href="https://github.com/mtthwmllr/skill-safety-auditor/blob/main/CHANGELOG.md">Changelog</a>
+        <a href="https://mtthw.com">Built by Matthew</a>
+      </div>
+      <p class="footer-note">MIT licence &mdash; free to use and modify</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
