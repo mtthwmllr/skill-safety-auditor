@@ -6,6 +6,9 @@
   <title>Skill Safety Auditor — Audit Claude Code skills before you install them</title>
   <meta name="description" content="A free Claude Code skill that audits other skills for security risks before or after download. Checks for credential theft, shell access, prompt injection, and source provenance.">
 
+  <!-- Vercel Speed Insights -->
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+
   <!-- Canonical — update to match your live URL -->
   <link rel="canonical" href="https://skill-safety-auditor.vercel.app">
 
@@ -705,7 +708,7 @@
     </p>
     <div class="cta-group">
       <a href="#problem" class="btn btn-primary">See what it checks &darr;</a>
-      <a href="https://github.com/mtthwmllr/skill-safety-auditor" class="btn btn-secondary">View on GitHub</a>
+      <a href="https://github.com/mtthwmllr/skill-safety-auditor" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">View on GitHub</a>
     </div>
     <p class="trust-row">
       Not ready to install yet? Good instinct — read on first.
@@ -906,7 +909,7 @@ REMINDER: A clean audit is not a guarantee of safety.
       <p><strong>Frontmatter (metadata).</strong> The skill declares <code>name</code>, <code>version</code>, and <code>description</code>. No <code>allowed-tools</code> field — which triggers check A3 in the auditor's own taxonomy. In practice, the skill uses two tools: <strong>Read</strong> (to review local skill files in Mode B) and <strong>web_fetch</strong> (to retrieve remote skill files in Mode A). Neither grants shell access, file write access, or credential access.</p>
       <p><strong>Scripts.</strong> None. The <code>references/</code> directory contains two markdown files — documentation only. No <code>.py</code>, <code>.sh</code>, <code>.js</code>, or <code>.bash</code> files present. Checks B1 through B6 do not apply.</p>
       <p><strong>Prompt injection.</strong> The SKILL.md does not attempt to override Claude's safety behaviour, does not claim special Anthropic permissions, and does not instruct Claude to conceal anything from the user. Every instruction relates directly to auditing skill files.</p>
-      <p><strong>Source.</strong> Published directly by <a href="https://github.com/mtthwmllr">mtthwmllr</a> to this repository. No aggregator mirror involved.</p>
+      <p><strong>Source.</strong> Published directly by <a href="https://github.com/mtthwmllr" target="_blank" rel="noopener noreferrer">mtthwmllr</a> to this repository. No aggregator mirror involved.</p>
       <p><strong>Self-audit verdict: <span class="verdict-safe">Appears Safe.</span></strong> The A3 warning (no allowed-tools declared) is the only flag. It is acknowledged and explained above. A clean audit is not a guarantee — verify the source files yourself if you want to go further.</p>
     </div>
   </div>
@@ -964,7 +967,7 @@ REMINDER: A clean audit is not a guarantee of safety.
 
     <div class="cta-group">
       <a href="https://github.com/mtthwmllr/skill-safety-auditor/releases/latest/download/skill-safety-auditor.skill" class="btn btn-primary">Download Skill Safety Auditor — free</a>
-      <a href="https://github.com/mtthwmllr/skill-safety-auditor" class="btn btn-secondary">View on GitHub</a>
+      <a href="https://github.com/mtthwmllr/skill-safety-auditor" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">View on GitHub</a>
     </div>
     <p class="trust-row" style="margin-top: 14px;">
       Free
@@ -1005,10 +1008,10 @@ REMINDER: A clean audit is not a guarantee of safety.
   <div class="container">
     <div class="footer-inner">
       <div class="footer-links">
-        <a href="https://github.com/mtthwmllr/skill-safety-auditor">GitHub</a>
-        <a href="https://github.com/mtthwmllr/skill-safety-auditor/issues">Issues</a>
-        <a href="https://github.com/mtthwmllr/skill-safety-auditor/blob/main/CHANGELOG.md">Changelog</a>
-        <a href="https://mtthw.ca">Built by mtthw</a>
+        <a href="https://github.com/mtthwmllr/skill-safety-auditor" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://github.com/mtthwmllr/skill-safety-auditor/issues" target="_blank" rel="noopener noreferrer">Issues</a>
+        <a href="https://github.com/mtthwmllr/skill-safety-auditor/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">Changelog</a>
+        <a href="https://mtthw.ca" target="_blank" rel="noopener noreferrer">Built by mtthw</a>
       </div>
       <p class="footer-note">MIT licence &mdash; free to use and modify</p>
     </div>
