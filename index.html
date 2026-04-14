@@ -63,24 +63,24 @@
 
   <style>
     :root {
-      --bg:            #FAFAF8;
-      --bg-surface:    #F4F3EF;
+      --bg:            #F8FAF7;
+      --bg-surface:    #EFF3EC;
       --bg-card:       #FFFFFF;
-      --border:        #E2E0DC;
-      --border-strong: #C4C2BC;
+      --border:        #D4DDD1;
+      --border-strong: #B5C4B0;
       --text:          #1A1916;
       --text-secondary:#3D3A34;
       --text-muted:    #6B6760;
       --text-dim:      #605D58;
 
-      --hero-bg:       #100E18;
-      --hero-text:     #F0EEF8;
-      --hero-muted:    #8B90A8;
+      --hero-bg:       #1E2D1F;
+      --hero-text:     #EFF5EE;
+      --hero-muted:    #87A882;
 
-      --accent:        #4F46E5;
-      --accent-hover:  #4338CA;
-      --accent-light:  #EEF2FF;
-      --accent-mid:    #818CF8;
+      --accent:        #3A7A54;
+      --accent-hover:  #2D6042;
+      --accent-light:  #E4F0E8;
+      --accent-mid:    #6AAF88;
 
       --safe:          #15803D;
       --safe-bg:       #DCFCE7;
@@ -119,7 +119,7 @@
       height: 56px;
       display: flex;
       align-items: center;
-      background: rgba(16,14,24,.92);
+      background: rgba(30,45,31,.92);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(255,255,255,.07);
@@ -138,7 +138,7 @@
     .nav-brand {
       font-weight: 600;
       font-size: 0.88rem;
-      color: #F1F5F9;
+      color: #EFF5EE;
       text-decoration: none;
       display: flex;
       align-items: center;
@@ -159,7 +159,7 @@
 
     .nav-links a {
       font-size: 0.82rem;
-      color: #94A3B8;
+      color: #87A882;
       text-decoration: none;
       font-weight: 500;
       transition: color .15s;
@@ -256,11 +256,11 @@
     .btn-primary {
       background: var(--accent);
       color: #fff;
-      box-shadow: 0 2px 8px rgba(79,70,229,.30);
+      box-shadow: 0 2px 8px rgba(58,122,84,.28);
     }
     .btn-primary:hover {
       background: var(--accent-hover);
-      box-shadow: 0 4px 16px rgba(79,70,229,.40);
+      box-shadow: 0 4px 16px rgba(58,122,84,.36);
       transform: translateY(-1px);
       text-decoration: none;
       color: #fff;
@@ -309,7 +309,7 @@
       left: 40%;
       transform: translateX(-50%);
       width: 800px; height: 600px;
-      background: radial-gradient(ellipse at center, rgba(79,70,229,.22) 0%, rgba(67,56,202,.06) 45%, transparent 70%);
+      background: radial-gradient(ellipse at center, rgba(58,122,84,.20) 0%, rgba(45,96,66,.05) 45%, transparent 70%);
       pointer-events: none;
     }
 
@@ -318,7 +318,7 @@
       bottom: -80px;
       right: 5%;
       width: 400px; height: 400px;
-      background: radial-gradient(ellipse at center, rgba(129,140,248,.08) 0%, transparent 65%);
+      background: radial-gradient(ellipse at center, rgba(106,175,136,.07) 0%, transparent 65%);
       pointer-events: none;
     }
 
@@ -336,19 +336,19 @@
       gap: 8px;
       font-family: var(--mono);
       font-size: 0.66rem;
-      color: #A5B4FC;
+      color: #A5C9B0;
       letter-spacing: .12em;
       text-transform: uppercase;
       margin-bottom: 28px;
-      background: rgba(79,70,229,.12);
-      border: 1px solid rgba(129,140,248,.25);
+      background: rgba(58,122,84,.12);
+      border: 1px solid rgba(106,175,136,.25);
       padding: 6px 14px;
       border-radius: 100px;
     }
 
     .eyebrow-dot {
       width: 6px; height: 6px;
-      background: #818CF8;
+      background: #6AAF88;
       border-radius: 50%;
       animation: blink 2.4s ease-in-out infinite;
     }
@@ -386,33 +386,10 @@
     .trust-sep {
       width: 3px; height: 3px;
       border-radius: 50%;
-      background: #312E4A;
+      background: #2D3D2E;
       display: inline-block;
     }
 
-    .hero-stats {
-      display: flex;
-      gap: 36px;
-      margin-top: 52px;
-      padding-top: 36px;
-      border-top: 1px solid rgba(255,255,255,.07);
-      flex-wrap: wrap;
-    }
-
-    .hero-stat { display: flex; flex-direction: column; gap: 3px; }
-
-    .hero-stat-num {
-      font-family: var(--serif);
-      font-size: 1.9rem;
-      color: var(--hero-text);
-      line-height: 1;
-    }
-
-    .hero-stat-label {
-      font-size: 0.72rem;
-      color: var(--hero-muted);
-      font-weight: 500;
-    }
 
     /* ── Risk list ───────────────────────────── */
     .risk-list {
@@ -568,20 +545,20 @@
 
     /* ── Terminal ────────────────────────────── */
     .terminal {
-      background: #0D1520;
-      border: 1px solid #1A2740;
+      background: #0D1410;
+      border: 1px solid #1A2A1B;
       border-radius: var(--radius-lg);
       overflow: hidden;
       box-shadow: var(--shadow-lg);
     }
 
     .terminal-bar {
-      background: #152030;
+      background: #152516;
       padding: 10px 16px;
       display: flex;
       align-items: center;
       gap: 10px;
-      border-bottom: 1px solid #1A2740;
+      border-bottom: 1px solid #1A2A1B;
     }
 
     .terminal-dots { display: flex; gap: 6px; }
@@ -596,7 +573,7 @@
     .terminal-title {
       font-family: var(--mono);
       font-size: 0.66rem;
-      color: #7599B5;
+      color: #6A9E72;
       flex: 1;
       text-align: center;
     }
@@ -606,22 +583,22 @@
       font-family: var(--mono);
       font-size: 0.74rem;
       line-height: 1.8;
-      color: #7A95B0;
+      color: #7A9A80;
       white-space: pre-wrap;
       overflow-wrap: break-word;
       max-height: 500px;
       overflow-y: auto;
     }
 
-    .t-title  { color: #CBD5E1; font-weight: 500; }
-    .t-sep    { color: #1E3448; }
-    .t-label  { color: #7BA5C8; }
-    .t-val    { color: #A78BFA; }
+    .t-title  { color: #C8DEC9; font-weight: 500; }
+    .t-sep    { color: #1E3020; }
+    .t-label  { color: #7BAA85; }
+    .t-val    { color: #8FC9A0; }
     .t-danger { color: #F87171; font-weight: 600; }
     .t-warn   { color: #FCD34D; }
     .t-safe   { color: #34D399; }
-    .t-key    { color: #60A5FA; }
-    .t-dim    { color: #758FA8; }
+    .t-key    { color: #7EC8A0; }
+    .t-dim    { color: #7A9A80; }
 
     /* Report links */
     .report-links {
@@ -749,7 +726,7 @@
       font-family: var(--mono);
       font-size: .82em;
       background: var(--accent-light);
-      border: 1px solid #C7D2FE;
+      border: 1px solid #B8D4BC;
       padding: 2px 6px;
       border-radius: 4px;
       color: var(--accent-hover);
@@ -775,7 +752,7 @@
       position: absolute;
       top: 8px; right: 8px;
       background: var(--bg-card);
-      border: 1.5px solid var(--border);
+      border: 1.5px solid #96938E;
       border-radius: 6px;
       padding: 4px 10px;
       font-family: var(--mono);
@@ -886,7 +863,6 @@
       html { font-size: 16px; }
       section { padding: 56px 0; }
       .cta-group { flex-direction: column; align-items: flex-start; }
-      .hero-stats { gap: 20px; }
       .severity-card-action { display: none; }
     }
 
@@ -916,7 +892,7 @@
       <a href="#self-audit">Proof</a>
       <a href="#install">Install</a>
       <a href="https://github.com/mtthwmllr/skill-safety-auditor"
-         class="nav-cta" target="_blank" rel="noopener noreferrer">GitHub →</a>
+         class="nav-cta" target="_blank" rel="noopener noreferrer">GitHub →<span class="sr-only"> (opens in new tab)</span></a>
     </div>
   </div>
 </nav>
@@ -931,55 +907,28 @@
   <div class="hero-inner">
     <span class="eyebrow">
       <span class="eyebrow-dot" aria-hidden="true"></span>
-      Free Claude Code skill &nbsp;·&nbsp; MIT licence &nbsp;·&nbsp; Open source
+      Free Claude Code skill &nbsp;·&nbsp; MIT licence &nbsp;·&nbsp; Open source &nbsp;·&nbsp; Made by mtthw
     </span>
 
     <h1 id="hero-heading">
-      Before you install a Claude Code skill,<br>
-      <em>find out what it actually does.</em>
+      Before you install those Claude Code skills,
+      <em>find out what they actually do.</em>
     </h1>
 
     <p class="hero-sub">
-      <strong>Claude follows skill instructions automatically.</strong> The Skill Safety Auditor reads them first — and tells you in plain English whether they're safe to install.
+      <strong>Claude follows skill instructions automatically.</strong> The Skill Safety Auditor reads them first, tells you in plain English what's risky, and shows you exactly how to fix it.
     </p>
     <p class="hero-sub" style="margin-top:-10px;font-size:0.95rem;">
-      We're asking you to install something. Here's everything you need to decide if that's the right call for you — <strong>read on first.</strong>
+      You're being asked to install something. Here's everything you need to decide if that's the right call for you.  <strong>Read on first.</strong>
     </p>
 
     <div class="cta-group">
       <a href="#problem" class="btn btn-primary">See what it checks ↓</a>
       <a href="https://github.com/mtthwmllr/skill-safety-auditor"
-         class="btn btn-ghost" target="_blank" rel="noopener noreferrer">View source on GitHub →</a>
+         class="btn btn-ghost" target="_blank" rel="noopener noreferrer">View source on GitHub →<span class="sr-only"> (opens in new tab)</span></a>
     </div>
 
-    <p class="trust-row">
-      Free
-      <span class="trust-sep" aria-hidden="true"></span>
-      No account required
-      <span class="trust-sep" aria-hidden="true"></span>
-      Works in Claude Code
-      <span class="trust-sep" aria-hidden="true"></span>
-      Open source
-    </p>
-
-    <div class="hero-stats" aria-label="Key facts">
-      <div class="hero-stat">
-        <span class="hero-stat-num">14</span>
-        <span class="hero-stat-label">security checks</span>
-      </div>
-      <div class="hero-stat">
-        <span class="hero-stat-num">&lt;60s</span>
-        <span class="hero-stat-label">to get a report</span>
-      </div>
-      <div class="hero-stat">
-        <span class="hero-stat-num">3</span>
-        <span class="hero-stat-label">modes: before, during, after</span>
-      </div>
-      <div class="hero-stat">
-        <span class="hero-stat-num">$0</span>
-        <span class="hero-stat-label">always free</span>
-      </div>
-    </div>
+    <p class="trust-row">Free &nbsp;·&nbsp; No account required &nbsp;·&nbsp; Results in under 60 seconds</p>
   </div>
 </section>
 
@@ -987,18 +936,18 @@
 <section id="problem" aria-labelledby="problem-heading">
   <div class="container">
     <p class="section-eyebrow">The risk</p>
-    <h2 id="problem-heading">When you install a skill, Claude follows its instructions without question.</h2>
+    <h2 id="problem-heading">When you install a skill, Claude follows its instructions without question. That's why you should.</h2>
     <p>
       Skills are small text files that tell Claude how to behave — what tools to use, how to respond, what to do automatically. Most are genuinely useful. But Claude reads them as trusted instructions, the same way it reads a message from you.
     </p>
     <p>
-      Most people install skills the way they install browser extensions: trust the source, move fast, never look at what's inside. The Skill Safety Auditor reads what you'd never think to check, so you can install with confidence — or know when to skip one.
+      Most people install skills the way they install browser extensions: trust the source, move fast, never look at what's inside. The Skill Safety Auditor reads what you'd never think to check, so you can install with confidence  or know when to skip one.
     </p>
     <p style="font-size:0.83rem;color:var(--text-dim);margin-bottom:8px;">Here's what the auditor reads on your behalf:</p>
     <ul class="risk-list">
       <li>
         <span class="risk-icon" aria-hidden="true">🔑</span>
-        <span><strong>Access to your keys and credentials.</strong> Flags any skill that reaches for API keys, SSH credentials, or <code>.env</code> files — and tells you exactly what it found and why it matters.</span>
+        <span><strong>Access to your keys and credentials.</strong> Flags any skill that reaches for API keys, SSH credentials, or <code>.env</code> files and tells you exactly what it found and why it matters.</span>
       </li>
       <li>
         <span class="risk-icon" aria-hidden="true">💻</span>
@@ -1013,6 +962,11 @@
         <span><strong>Whether it matches what the author published.</strong> If a skill came from a third-party source, the auditor checks whether your copy still matches the original.</span>
       </li>
     </ul>
+
+    <div style="display:flex;gap:16px;align-items:center;margin-top:36px;padding-top:28px;border-top:1px solid var(--border);">
+      <img src="author.jpg" alt="Matthew Miller" style="width:48px;height:48px;border-radius:50%;object-fit:cover;object-position:center top;flex-shrink:0;border:2px solid var(--border);">
+      <p style="font-size:0.88rem;color:var(--text-muted);margin:0;">Hey there, my name is <strong style="color:var(--text);">Matthew Miller</strong> — I'm a Canadian working with organizations adopting AI. I've noticed people install skills the way they install browser extensions. Trusting without inspecting. I built this so you don't have to wonder what's under the hood of your current and future skills. But don't take my word for it. <a href="#how-it-works" style="color:var(--accent);font-weight:600;">See how it works.</a></p>
+    </div>
   </div>
 </section>
 
@@ -1020,21 +974,22 @@
 <section id="how-it-works" aria-labelledby="how-heading">
   <div class="container">
     <p class="section-eyebrow">How it works</p>
-    <h2 id="how-heading">Tell it where to look. It checks 14 things and gives you one clear report.</h2>
+    <h2 id="how-heading">Three modes. Tell Skill Safety Auditor where to look — it checks 14 things and gives you one clear report.</h2>
+    <p style="color:var(--text-muted);margin-bottom:28px;">Pick the mode that matches where you are in your workflow.</p>
 
     <div class="modes three">
       <div class="mode-card">
-        <span class="mode-label">Before you download</span>
+        <span class="mode-label">Mode 1 — Before you download</span>
         <h4>Check a skill before anything touches your machine</h4>
         <p>Paste a GitHub URL, install command, or marketplace link. The auditor fetches the skill remotely and runs all checks before you download a single file.</p>
       </div>
       <div class="mode-card">
-        <span class="mode-label">Downloaded, not installed</span>
+        <span class="mode-label">Mode 2 — Downloaded, not installed</span>
         <h4>Audit a .skill file before you install it</h4>
         <p>Have the <code>.skill</code> file in your Downloads folder but haven't installed it yet? The auditor reads what's inside before anything is installed.</p>
       </div>
       <div class="mode-card">
-        <span class="mode-label">Already installed</span>
+        <span class="mode-label">Mode 3 — Already installed</span>
         <h4>Audit what's already on your system</h4>
         <p>Skill already installed? Point the auditor at its folder in your Claude Code skills directory and it reads the live files directly.</p>
       </div>
@@ -1100,7 +1055,7 @@
     <p class="section-eyebrow">Sample report</p>
     <h2 id="sample-heading">A real report from a test skill built to fail on purpose.</h2>
     <p>
-      This report was generated by auditing a skill we built specifically to trigger known findings.
+      This report was generated by auditing a skill built specifically to trigger known findings.
       Think of it the way security researchers use test files — a safe, documented example with
       known-bad patterns so you can see what a real critical-severity report looks like before you encounter one.
     </p>
@@ -1183,14 +1138,14 @@ Found in: SKILL.md frontmatter (allowed-tools includes "Write")
         <span class="rlc-label">Full report on GitHub</span>
         <span class="rlc-title">audit-sample/sample-report.md</span>
         <span class="rlc-desc">Includes step-by-step remedies for every finding, written in the auditor's exact output format.</span>
-        <span class="rlc-arrow">View on GitHub →</span>
+        <span class="rlc-arrow">View on GitHub →<span class="sr-only"> (opens in new tab)</span></span>
       </a>
       <a href="https://github.com/mtthwmllr/skill-safety-auditor/tree/main/test-fixtures"
          class="report-link-card" target="_blank" rel="noopener noreferrer">
         <span class="rlc-label">Test skill source on GitHub</span>
         <span class="rlc-title">test-fixtures/</span>
         <span class="rlc-desc">The deliberately constructed skill used to produce this report. Audit it yourself to verify the output.</span>
-        <span class="rlc-arrow">View on GitHub →</span>
+        <span class="rlc-arrow">View on GitHub →<span class="sr-only"> (opens in new tab)</span></span>
       </a>
     </div>
   </div>
@@ -1199,10 +1154,13 @@ Found in: SKILL.md frontmatter (allowed-tools includes "Write")
 <!-- ── SELF-AUDIT ──────────────────────────────────────── -->
 <section id="self-audit" aria-labelledby="selfaudit-heading">
   <div class="container">
-    <p class="section-eyebrow">Proof it's what it claims</p>
-    <h2 id="selfaudit-heading">We audited the Skill Safety Auditor itself. Here's what we found.</h2>
+    <div style="display:flex;gap:14px;align-items:center;margin-bottom:12px;">
+      <img src="author.jpg" alt="Matthew Miller" style="width:48px;height:48px;border-radius:50%;object-fit:cover;object-position:center top;flex-shrink:0;border:2px solid var(--border);">
+      <p class="section-eyebrow" style="margin:0;">Proof it's what it claims</p>
+    </div>
+    <h2 id="selfaudit-heading">I audited the Skill Safety Auditor itself. Here's what I found.</h2>
     <p>
-      A security tool you can't verify is just another thing to trust blindly. So we ran every check the auditor runs — against itself — in public, with the source files open for anyone to inspect.
+      A security tool you can't verify is just another thing to trust blindly. So I ran every check the auditor runs <em> against itself</em> in public, with the source files open for anyone to inspect.
     </p>
 
     <div class="audit-grid">
@@ -1224,7 +1182,7 @@ Found in: SKILL.md frontmatter (allowed-tools includes "Write")
       <div class="audit-card">
         <span class="audit-card-icon" aria-hidden="true">👤</span>
         <h4>Known, direct publisher</h4>
-        <p>Published directly by <a href="https://github.com/mtthwmllr" target="_blank" rel="noopener noreferrer">mtthwmllr</a> to this repository. No third-party aggregator involved.</p>
+        <p>Published directly by <a href="https://github.com/mtthwmllr" target="_blank" rel="noopener noreferrer">mtthwmllr<span class="sr-only"> (opens in new tab)</span></a> to this repository. No third-party aggregator involved.</p>
       </div>
     </div>
 
@@ -1254,7 +1212,7 @@ Found in: SKILL.md frontmatter (allowed-tools includes "Write")
         <pre>npm install -g @anthropic-ai/claude-code</pre>
         <button class="copy-btn" onclick="copyPre(this)" aria-label="Copy command">copy</button>
       </div>
-      <p style="margin-top:12px;font-size:0.82rem;color:var(--text-dim);">Still getting errors? <a href="https://docs.anthropic.com/en/docs/claude-code/getting-started" target="_blank" rel="noopener noreferrer">Follow the official Claude Code setup guide</a> — it walks you through the full process for Mac and Windows.</p>
+      <p style="margin-top:12px;font-size:0.82rem;color:var(--text-dim);">Still getting errors? <a href="https://docs.anthropic.com/en/docs/claude-code/getting-started" target="_blank" rel="noopener noreferrer">Follow the official Claude Code setup guide<span class="sr-only"> (opens in new tab)</span></a> — it walks you through the full process for Mac and Windows.</p>
     </div>
 
     <div class="steps">
@@ -1265,7 +1223,7 @@ Found in: SKILL.md frontmatter (allowed-tools includes "Write")
           <p>Click the button to download the file to your Downloads folder.</p>
           <div class="cta-group" style="margin-top:12px;">
             <a href="https://github.com/mtthwmllr/skill-safety-auditor/releases/latest/download/skill-safety-auditor.skill"
-               class="btn btn-primary" target="_blank" rel="noopener noreferrer">↓ Download Skill Safety Auditor — free</a>
+               class="btn btn-primary" target="_blank" rel="noopener noreferrer">↓ Download Skill Safety Auditor — free<span class="sr-only"> (opens in new tab)</span></a>
           </div>
         </div>
       </div>
@@ -1297,7 +1255,7 @@ Found in: SKILL.md frontmatter (allowed-tools includes "Write")
 
     <div class="modes three">
       <div class="mode-card">
-        <span class="mode-label">Before you download</span>
+        <span class="mode-label">Mode 1 — Before you download</span>
         <h4>Check a skill before anything touches your machine</h4>
         <p>Replace the URL with the skill you want to check:</p>
         <div class="pre-wrap" style="margin-top:10px;">
@@ -1306,7 +1264,7 @@ Found in: SKILL.md frontmatter (allowed-tools includes "Write")
         </div>
       </div>
       <div class="mode-card">
-        <span class="mode-label">Downloaded, not installed</span>
+        <span class="mode-label">Mode 2 — Downloaded, not installed</span>
         <h4>Check a .skill file before you install it</h4>
         <p>Replace the path with the location of your file:</p>
         <div class="pre-wrap" style="margin-top:10px;">
@@ -1315,7 +1273,7 @@ Found in: SKILL.md frontmatter (allowed-tools includes "Write")
         </div>
       </div>
       <div class="mode-card">
-        <span class="mode-label">Already installed</span>
+        <span class="mode-label">Mode 3 — Already installed</span>
         <h4>Check a skill that's already installed</h4>
         <p>Replace the skill name with the one you want to audit:</p>
         <div class="pre-wrap" style="margin-top:10px;">
@@ -1326,7 +1284,7 @@ Found in: SKILL.md frontmatter (allowed-tools includes "Write")
     </div>
 
     <p style="margin-top:24px;color:var(--text-muted);font-size:0.9rem;">
-      Claude runs all 14 checks and returns a plain-English report. If anything needs attention, the auditor walks you through exactly what to fix — step by step.
+      Claude runs all 14 checks and returns a plain-English report. If anything needs attention, the auditor walks you through exactly what to fix step by step.
     </p>
   </div>
 </section>
@@ -1339,12 +1297,10 @@ Found in: SKILL.md frontmatter (allowed-tools includes "Write")
       <div class="about-body">
         <p class="section-eyebrow" id="about-heading">Built by mtthw</p>
         <p class="about-name">Matthew Miller, MA</p>
-        <p>I work with organizations adopting AI and I keep seeing the same gap. People install Claude skills the way they install browser extensions. They trust the source, move on, and never look inside. Meanwhile the skills ecosystem is growing faster than most can keep up.</p>
         <p>I helped bring an innovation culture to a Canadian health authority. In environments accountable for patient data, "move fast" only works when the people responsible for outcomes can actually understand what they're deploying, not just the developers.</p>
-        <p>My background is digital transformation, innovation enablement, and communication. I'm sharing this with you so can move fast and still know exactly what you are dealing with.</p>
+        <p>My background is digital transformation, innovation enablement, and communication. I'm sharing Skill Safety Auditor with you so you can move fast and still know exactly what you are dealing with.</p>
         <div class="about-links">
           <a href="https://www.linkedin.com/in/mtthwmllr/" target="_blank" rel="noopener noreferrer">LinkedIn<span class="sr-only"> (opens in new tab)</span></a>
-          <a href="https://github.com/mtthwmllr" target="_blank" rel="noopener noreferrer">GitHub<span class="sr-only"> (opens in new tab)</span></a>
           <a href="https://mtthw.ca" target="_blank" rel="noopener noreferrer">mtthw.ca<span class="sr-only"> (opens in new tab)</span></a>
         </div>
       </div>
@@ -1358,12 +1314,11 @@ Found in: SKILL.md frontmatter (allowed-tools includes "Write")
   <div class="container">
     <div class="footer-inner">
       <div class="footer-links">
-        <a href="https://github.com/mtthwmllr/skill-safety-auditor" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://github.com/mtthwmllr/skill-safety-auditor/issues" target="_blank" rel="noopener noreferrer">Issues</a>
-        <a href="https://github.com/mtthwmllr/skill-safety-auditor/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer">Changelog</a>
-        <a href="https://mtthw.ca" target="_blank" rel="noopener noreferrer">Built by mtthw</a>
+        <a href="https://github.com/mtthwmllr/skill-safety-auditor" target="_blank" rel="noopener noreferrer">View Skill Safety Auditor Source on GitHub<span class="sr-only"> (opens in new tab)</span></a>
       </div>
-      <p class="footer-note">MIT licence &mdash; free to use, share, and modify</p>
+      <a href="https://www.w3.org/WAI/WCAG2AA-Conformance" title="Explanation of WCAG 2 Level AA conformance" target="_blank" rel="noopener noreferrer">
+        <img height="31" width="88" src="https://www.w3.org/WAI/WCAG21/wcag2.1AA-blue-v.png" alt="Level AA conformance, W3C Web Content Accessibility Guidelines 2.1"> <span class="sr-only"> (opens in new tab)</span>
+      </a>
     </div>
   </div>
 </footer>
