@@ -916,7 +916,7 @@
     </h1>
 
     <p class="hero-sub">
-      <strong>Claude follows skill instructions automatically.</strong> The Skill Safety Auditor reads them first, tells you in plain English what's risky, and shows you exactly how to fix it.
+      <strong>Claude follows skill instructions automatically.</strong> The Skill Safety Auditor reads them first, tells you in plain English what's risky, and helps you decide what's safe to accept.
     </p>
     <p class="hero-sub" style="margin-top:-10px;font-size:0.95rem;">
       You're being asked to install something. Here's everything you need to decide if that's the right call for you.  <strong>Read on first.</strong>
@@ -1167,7 +1167,7 @@ Found in: SKILL.md frontmatter (allowed-tools includes "Write")
       <div class="audit-card">
         <span class="audit-card-icon" aria-hidden="true">📋</span>
         <h4>Declared purpose</h4>
-        <p>Declares its name, version, and purpose. Does not declare a tool list — which it flags as a warning in its own checks. In practice uses exactly two tools: <strong>Read</strong> and <strong>web_fetch</strong>. Neither grants shell or credential access.</p>
+        <p>Declares its name, version, purpose, and tool list. Uses exactly three tools: <strong>Read</strong>, <strong>WebFetch</strong>, and <strong>Glob</strong>. All are read-only. None grant shell or credential access.</p>
       </div>
       <div class="audit-card">
         <span class="audit-card-icon" aria-hidden="true">🗂️</span>
@@ -1187,7 +1187,7 @@ Found in: SKILL.md frontmatter (allowed-tools includes "Write")
     </div>
 
     <div class="verdict-block">
-      ✅ Verdict: <strong>Appears Safe.</strong> The one flag — no tool list declared — is acknowledged and explained above. A clean audit is not a guarantee of safety. Verify the source files yourself if you want to go further.
+      ✅ Verdict: <strong>Appears Safe.</strong> No flags. A clean audit is not a guarantee of safety. Verify the source files yourself if you want to go further.
     </div>
   </div>
 </section>
