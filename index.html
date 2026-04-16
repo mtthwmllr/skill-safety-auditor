@@ -38,12 +38,23 @@
       {
         "@type": "SoftwareApplication",
         "name": "Skill Safety Auditor",
-        "description": "A free Claude Code skill that audits other skills for security risks before or after download.",
+        "description": "A free Claude Code skill that audits other skills for security risks before or after download. Checks for credential access, shell commands, override instructions, and whether a skill matches what the original author published.",
         "applicationCategory": "SecurityApplication",
+        "applicationSubCategory": "Developer Tools",
         "operatingSystem": "macOS, Windows, Linux",
         "url": "https://skill-safety-auditor.vercel.app/",
         "downloadUrl": "https://github.com/mtthwmllr/skill-safety-auditor/releases/latest/download/skill-safety-auditor.skill",
         "softwareVersion": "1.1.0",
+        "releaseNotes": "https://github.com/mtthwmllr/skill-safety-auditor/releases",
+        "featureList": [
+          "Credential and API key access detection",
+          "Shell command and terminal access detection",
+          "Override instruction detection",
+          "Source verification and tamper detection",
+          "Three audit modes: pre-download, post-download, post-install",
+          "14-point security checklist",
+          "Plain-English severity report with remediation steps"
+        ],
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
         "author": { "@id": "#author" },
         "license": "https://opensource.org/licenses/MIT"
@@ -51,6 +62,7 @@
       {
         "@type": "WebSite",
         "name": "Skill Safety Auditor",
+        "description": "Know what a Claude Code skill does before you install it.",
         "url": "https://skill-safety-auditor.vercel.app/"
       },
       {
@@ -61,27 +73,91 @@
         "supply": [
           { "@type": "HowToSupply", "name": "Claude Code CLI" }
         ],
+        "tool": [
+          { "@type": "HowToTool", "name": "Terminal (Mac) or PowerShell (Windows)" }
+        ],
         "step": [
           {
             "@type": "HowToStep",
             "position": 1,
-            "name": "Download the skill file",
-            "text": "Click the download button to save skill-safety-auditor.skill to your Downloads folder.",
+            "name": "Add the plugin from the marketplace",
+            "text": "Open Terminal (Mac) or PowerShell (Windows) and run: claude plugin marketplace add mtthwmllr/skill-safety-auditor-plugin",
             "url": "https://skill-safety-auditor.vercel.app/#install"
           },
           {
             "@type": "HowToStep",
             "position": 2,
-            "name": "Install the skill",
-            "text": "On Mac, open Terminal and run: unzip ~/Downloads/skill-safety-auditor.skill -d ~/.claude/skills/skill-safety-auditor. On Windows, open PowerShell and run: Expand-Archive -Path \"$env:USERPROFILE\\Downloads\\skill-safety-auditor.skill\" -DestinationPath \"$env:USERPROFILE\\.claude\\skills\\skill-safety-auditor\"",
+            "name": "Install the skill from the plugin",
+            "text": "Run: claude plugin install skill-safety-auditor@skill-safety-auditor — when the command finishes with no error, the skill is installed.",
             "url": "https://skill-safety-auditor.vercel.app/#install"
           },
           {
             "@type": "HowToStep",
             "position": 3,
             "name": "Run an audit in Claude Code",
-            "text": "Open Claude Code and tell it what to audit — a GitHub URL, a downloaded .skill file, or an already-installed skill directory.",
+            "text": "Open Claude Code and tell it what to audit — paste a GitHub URL, path to a downloaded .skill file, or the path to an already-installed skill directory.",
             "url": "https://skill-safety-auditor.vercel.app/#install"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is a Claude Code skill?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Skills are small text files that tell Claude how to behave — what tools to use, how to respond, and what to do automatically. Claude reads them as trusted instructions, the same way it reads a message from you."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the difference between a skill and a plugin?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A skill is the actual set of instructions Claude follows — a text file (or folder of files) that defines behavior, tools, and prompts. A plugin is a distribution package that makes a skill installable from the Claude Code marketplace in one command. The plugin wraps the skill and handles versioning and updates; the skill is what Claude actually reads and executes."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What security risks does Skill Safety Auditor check for?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Skill Safety Auditor runs 14 checks across four categories: credential and API key access, shell commands that affect your terminal, override instructions that change how Claude behaves, and source verification to confirm your copy matches what the original author published."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need to install Skill Safety Auditor before I can use it to check a skill?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, but it takes under a minute. Install it once via the Claude Code marketplace plugin or by downloading the .skill file, then use it to audit any skill before or after download."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I audit a skill I've already installed?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Point the auditor at the skill's folder in your Claude Code skills directory and it reads the live files directly. This is Mode 3 of the three audit modes."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is Skill Safety Auditor free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Skill Safety Auditor is completely free, requires no account, and returns results in under 60 seconds. It is open source under the MIT license."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Has the Skill Safety Auditor itself been audited for security?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. The auditor has been run against itself publicly. It uses exactly three read-only tools (Read, WebFetch, Glob), contains no bundled scripts, makes no override claims, and is published directly by the author with full source available on GitHub."
+            }
           }
         ]
       },
@@ -89,6 +165,7 @@
         "@type": "Person",
         "@id": "#author",
         "name": "Matthew Miller",
+        "jobTitle": "Digital Transformation and Innovation Enablement",
         "url": "https://mtthw.ca",
         "sameAs": [
           "https://www.linkedin.com/in/mtthwmllr/",
@@ -224,7 +301,57 @@
     }
 
     @media (max-width: 600px) {
-      .nav-links a:not(.nav-cta) { display: none; }
+      .nav-links a:not(.nav-cta):not(.nav-github-btn) { display: none; }
+    }
+
+    /* ── GitHub dropdown ─────────────────────── */
+    .nav-github-dropdown {
+      position: relative;
+    }
+
+    .nav-github-btn {
+      cursor: pointer;
+      font-family: var(--sans);
+    }
+
+    .nav-github-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      min-width: 220px;
+      background: #1A2A1B;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,.35);
+      z-index: 200;
+    }
+
+    .nav-github-menu.open { display: block; }
+
+    .nav-github-menu a {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 14px 18px;
+      text-decoration: none;
+      transition: background .12s;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav-github-menu a:last-child { border-bottom: none; }
+    .nav-github-menu a:hover { background: rgba(255,255,255,.07); }
+
+    .ngm-label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #EFF5EE;
+      letter-spacing: -.01em;
+    }
+    .ngm-desc {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: #6A9E72;
     }
 
     /* ── Layout ──────────────────────────────── */
@@ -480,17 +607,20 @@
       gap: 14px;
       margin-bottom: 40px;
     }
-    .modes.three { grid-template-columns: repeat(3,1fr); }
+    .modes.three {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
 
     @media (max-width: 680px) {
-      .modes, .modes.three { grid-template-columns: 1fr; }
+      .modes { grid-template-columns: 1fr; }
     }
 
     .mode-card {
       background: var(--bg-card);
       border: 1.5px solid var(--border);
       border-radius: var(--radius-lg);
-      padding: 22px 20px;
+      padding: 22px 24px;
       box-shadow: var(--shadow-sm);
       transition: all .2s;
     }
@@ -498,6 +628,12 @@
       box-shadow: var(--shadow-md);
       border-color: var(--accent);
       transform: translateY(-2px);
+    }
+    .mode-card--static:hover {
+      box-shadow: var(--shadow-sm);
+      border-color: var(--border);
+      transform: none;
+      cursor: default;
     }
 
     .mode-label {
@@ -511,14 +647,16 @@
     }
 
     .mode-card h4 {
-      font-size: 0.92rem;
+      font-size: 0.97rem;
       font-weight: 600;
       color: var(--text);
       margin-bottom: 8px;
       line-height: 1.4;
     }
 
-    .mode-card p { font-size: 0.84rem; color: var(--text-muted); margin: 0; }
+    .mode-card p { font-size: 0.84rem; color: var(--text-muted); margin: 0 0 12px; }
+    .mode-card p:last-child { margin-bottom: 0; }
+    .mode-card .pre-wrap { margin-top: 4px; }
 
     /* Checks grid */
     .checks-grid {
@@ -652,8 +790,9 @@
     @media (max-width: 560px) { .report-links { grid-template-columns: 1fr; } }
 
     .report-link-card {
-      display: block;
-      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      padding: 20px 22px;
       background: var(--bg-card);
       border: 1.5px solid var(--border);
       border-radius: var(--radius-lg);
@@ -663,7 +802,7 @@
     }
     .report-link-card:hover {
       box-shadow: var(--shadow-md);
-      border-color: var(--accent);
+      border-color: var(--border-strong);
       transform: translateY(-2px);
       text-decoration: none;
     }
@@ -682,19 +821,35 @@
       font-size: 0.88rem;
       font-weight: 600;
       color: var(--text);
-      margin-bottom: 4px;
+      margin-bottom: 6px;
+      line-height: 1.4;
     }
     .rlc-desc {
       display: block;
       font-size: 0.8rem;
       color: var(--text-muted);
-      line-height: 1.5;
+      line-height: 1.55;
+      flex: 1;
+      margin-bottom: 16px;
     }
     .rlc-arrow {
-      display: block;
-      font-size: 0.78rem;
-      color: var(--accent);
-      margin-top: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      align-self: flex-start;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #fff;
+      background: var(--accent);
+      padding: 7px 14px;
+      border-radius: var(--radius);
+      box-shadow: 0 2px 6px rgba(58,122,84,.22);
+      transition: background .15s, gap .15s, box-shadow .15s;
+    }
+    .report-link-card:hover .rlc-arrow {
+      background: var(--accent-hover);
+      gap: 9px;
+      box-shadow: 0 3px 10px rgba(58,122,84,.32);
     }
 
     /* ── Self audit ──────────────────────────── */
@@ -729,6 +884,73 @@
       color: var(--safe);
       font-weight: 600;
       line-height: 1.6;
+    }
+
+    /* ── Install tabs ───────────────────────── */
+    .install-tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 28px;
+      background: var(--bg-surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 4px;
+      width: fit-content;
+    }
+
+    .tab-btn {
+      padding: 8px 18px;
+      border-radius: calc(var(--radius-lg) - 2px);
+      font-family: var(--sans);
+      font-size: 0.84rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      background: transparent;
+      color: var(--text-muted);
+      transition: all .15s;
+      line-height: 1.4;
+    }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn.active {
+      background: var(--bg-card);
+      color: var(--text);
+      box-shadow: var(--shadow-sm);
+      border: 1.5px solid var(--border);
+    }
+
+    .tab-panel {
+      display: none;
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    .tab-panel.active {
+      display: block;
+      animation: tabFadeIn .22s ease forwards;
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px 28px 32px;
+      box-shadow: var(--shadow-sm);
+    }
+    @keyframes tabFadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .plugin-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: var(--accent-light);
+      border: 1px solid #B8D4BC;
+      padding: 3px 10px;
+      border-radius: 100px;
+      letter-spacing: .04em;
+      margin-bottom: 16px;
     }
 
     /* ── Install ─────────────────────────────── */
@@ -824,6 +1046,66 @@
     }
 
     .divider { height: 1px; background: var(--border); margin: 36px 0; }
+
+    /* ── FAQ ─────────────────────────────────── */
+    #faq { background: #E6EDE3; }
+
+    .faq-list { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+
+    .faq-item {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .faq-item.open { border-color: var(--border-strong); box-shadow: var(--shadow-md); }
+
+    .faq-question {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 20px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      font-family: var(--sans);
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.4;
+      transition: background .15s;
+    }
+    .faq-question:hover { background: var(--bg-surface); }
+
+    .faq-chevron {
+      flex-shrink: 0;
+      width: 20px; height: 20px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted);
+      transition: transform .22s ease;
+    }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+    .faq-answer {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows .22s ease;
+    }
+    .faq-item.open .faq-answer { grid-template-rows: 1fr; }
+
+    .faq-answer-inner {
+      overflow: hidden;
+      padding: 0 20px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    .faq-item.open .faq-answer-inner { padding: 0 20px 18px; }
 
     /* ── About ───────────────────────────────── */
     .about-inner { display: flex; gap: 28px; align-items: flex-start; }
@@ -933,8 +1215,24 @@
       <a href="#sample">Sample report</a>
       <a href="#self-audit">Proof</a>
       <a href="#install">Install</a>
-      <a href="https://github.com/mtthwmllr/skill-safety-auditor"
-         class="nav-cta" target="_blank" rel="noopener noreferrer">GitHub →<span class="sr-only"> (opens in new tab)</span></a>
+      <a href="#faq">FAQ</a>
+      <div class="nav-github-dropdown" id="nav-github">
+        <button class="nav-cta nav-github-btn" aria-haspopup="true" aria-expanded="false" aria-controls="github-menu" onclick="toggleGithubMenu(event)">
+          GitHub ↓<span class="sr-only"> — choose repository</span>
+        </button>
+        <div class="nav-github-menu" id="github-menu" role="menu" aria-label="GitHub repositories">
+          <a href="https://github.com/mtthwmllr/skill-safety-auditor"
+             role="menuitem" target="_blank" rel="noopener noreferrer">
+            <span class="ngm-label">Skill</span>
+            <span class="ngm-desc">skill-safety-auditor</span>
+          </a>
+          <a href="https://github.com/mtthwmllr/skill-safety-auditor-plugin"
+             role="menuitem" target="_blank" rel="noopener noreferrer">
+            <span class="ngm-label">Plugin</span>
+            <span class="ngm-desc">skill-safety-auditor-plugin</span>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
@@ -949,7 +1247,7 @@
   <div class="hero-inner">
     <span class="eyebrow">
       <span class="eyebrow-dot" aria-hidden="true"></span>
-      Free Claude Code skill &nbsp;·&nbsp; MIT licence &nbsp;·&nbsp; Open source &nbsp;·&nbsp; Made by mtthw
+      Free Claude Code skill &amp; Marketplace plugin
     </span>
 
     <h1 id="hero-heading">
@@ -961,13 +1259,11 @@
       <strong>Claude follows skill instructions automatically.</strong> The Skill Safety Auditor reads them first, tells you in plain English what's risky, and helps you decide what's safe to accept.
     </p>
     <p class="hero-sub" style="margin-top:-10px;font-size:0.95rem;">
-      You're being asked to install something. Here's everything you need to decide if that's the right call for you.  <strong>Read on first.</strong>
+      Hey, you're being asked to install something. Here's everything you need to decide if that's the right call for you.  <strong>Read on first.</strong>
     </p>
 
     <div class="cta-group">
       <a href="#problem" class="btn btn-primary">See what it checks ↓</a>
-      <a href="https://github.com/mtthwmllr/skill-safety-auditor"
-         class="btn btn-ghost" target="_blank" rel="noopener noreferrer">View source on GitHub →<span class="sr-only"> (opens in new tab)</span></a>
     </div>
 
     <p class="trust-row">Free &nbsp;·&nbsp; No account required &nbsp;·&nbsp; Results in under 60 seconds</p>
@@ -1180,14 +1476,14 @@ Found in: SKILL.md frontmatter (allowed-tools includes "Write")
         <span class="rlc-label">Full report on GitHub</span>
         <span class="rlc-title">audit-sample/sample-report.md</span>
         <span class="rlc-desc">Includes step-by-step remedies for every finding, written in the auditor's exact output format.</span>
-        <span class="rlc-arrow">View on GitHub →<span class="sr-only"> (opens in new tab)</span></span>
+        <span class="rlc-arrow">View on GitHub <span aria-hidden="true">→</span><span class="sr-only"> (opens in new tab)</span></span>
       </a>
       <a href="https://github.com/mtthwmllr/skill-safety-auditor/tree/main/test-fixtures"
          class="report-link-card" target="_blank" rel="noopener noreferrer">
         <span class="rlc-label">Test skill source on GitHub</span>
         <span class="rlc-title">test-fixtures/</span>
         <span class="rlc-desc">The deliberately constructed skill used to produce this report. Audit it yourself to verify the output.</span>
-        <span class="rlc-arrow">View on GitHub →<span class="sr-only"> (opens in new tab)</span></span>
+        <span class="rlc-arrow">View on GitHub <span aria-hidden="true">→</span><span class="sr-only"> (opens in new tab)</span></span>
       </a>
     </div>
   </div>
@@ -1238,7 +1534,7 @@ Found in: SKILL.md frontmatter (allowed-tools includes "Write")
 <section id="install" aria-labelledby="install-heading">
   <div class="container">
     <p class="section-eyebrow">Install &amp; use</p>
-    <h2 id="install-heading">Up and running in under a minute. One click, one command.</h2>
+    <h2 id="install-heading">Two ways to install. Up and running in under a minute.</h2>
 
     <div class="prereq-card">
       <p><strong>Before you start: make sure the Claude Code CLI is available in your terminal</strong></p>
@@ -1257,35 +1553,78 @@ Found in: SKILL.md frontmatter (allowed-tools includes "Write")
       <p style="margin-top:12px;font-size:0.82rem;color:var(--text-dim);">Still getting errors? <a href="https://docs.anthropic.com/en/docs/claude-code/getting-started" target="_blank" rel="noopener noreferrer">Follow the official Claude Code setup guide<span class="sr-only"> (opens in new tab)</span></a> — it walks you through the full process for Mac and Windows.</p>
     </div>
 
-    <div class="steps">
-      <div class="step">
-        <div class="step-num" aria-hidden="true">1</div>
-        <div class="step-body">
-          <p><strong>Download the skill file</strong></p>
-          <p>Click the button to download the file to your Downloads folder.</p>
-          <div class="cta-group" style="margin-top:12px;">
-            <a href="https://github.com/mtthwmllr/skill-safety-auditor/releases/latest/download/skill-safety-auditor.skill"
-               class="btn btn-primary" target="_blank" rel="noopener noreferrer">↓ Download Skill Safety Auditor — free<span class="sr-only"> (opens in new tab)</span></a>
+    <div style="margin-bottom:16px;">
+      <p style="font-size:0.95rem;color:var(--text-secondary);margin-bottom:0;"><strong>Choose your install method.</strong> The marketplace plugin is one command and stays up to date automatically. The <code>.skill</code> file gives you a local copy you can open, inspect, and edit, Useful if you want to customize the instructions.</p>
+    </div>
+
+    <div class="install-tabs" role="tablist" aria-label="Installation method">
+      <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-plugin" id="tab-btn-plugin" onclick="switchTab('plugin')">Marketplace plugin</button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-skill" id="tab-btn-skill" onclick="switchTab('skill')">.skill file</button>
+    </div>
+
+    <!-- Plugin tab -->
+    <div id="tab-plugin" class="tab-panel active" role="tabpanel" aria-labelledby="tab-btn-plugin">
+      <span class="plugin-badge">✦ Recommended</span>
+      <p style="color:var(--text-muted);margin-bottom:24px;">The marketplace plugin installs in one command — no downloading or unzipping. Use this if you want the simplest setup.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num" aria-hidden="true">1</div>
+          <div class="step-body">
+            <p><strong>Add the plugin from the marketplace</strong></p>
+            <p>Open Terminal (Mac) or PowerShell (Windows) and run:</p>
+            <p class="os-label">Mac &amp; Windows</p>
+            <div class="pre-wrap">
+              <pre>claude plugin marketplace add mtthwmllr/skill-safety-auditor-plugin</pre>
+              <button class="copy-btn" onclick="copyPre(this)" aria-label="Copy command">copy</button>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" aria-hidden="true">2</div>
+          <div class="step-body">
+            <p><strong>Install the skill from the plugin</strong></p>
+            <div class="pre-wrap">
+              <pre>claude plugin install skill-safety-auditor@skill-safety-auditor</pre>
+              <button class="copy-btn" onclick="copyPre(this)" aria-label="Copy command">copy</button>
+            </div>
+            <p style="margin-top:12px;">When the command finishes with no error, the skill is installed. Open Claude Code and you're ready to go.</p>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="step">
-        <div class="step-num" aria-hidden="true">2</div>
-        <div class="step-body">
-          <p><strong>Install it</strong></p>
-          <p>Open Terminal (Mac) or PowerShell (Windows) and paste the command for your system. This copies the skill into the folder where Claude Code looks for skills.</p>
-          <p class="os-label">Mac — Terminal</p>
-          <div class="pre-wrap">
-            <pre>unzip ~/Downloads/skill-safety-auditor.skill -d ~/.claude/skills/skill-safety-auditor</pre>
-            <button class="copy-btn" onclick="copyPre(this)" aria-label="Copy command">copy</button>
+    <!-- .skill file tab -->
+    <div id="tab-skill" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-skill">
+      <p style="color:var(--text-muted);margin-bottom:24px;">Download the <code>.skill</code> file and install it manually. Works without the marketplace.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num" aria-hidden="true">1</div>
+          <div class="step-body">
+            <p><strong>Download the skill file</strong></p>
+            <p>Click the button to download the file to your Downloads folder.</p>
+            <div class="cta-group" style="margin-top:12px;">
+              <a href="https://github.com/mtthwmllr/skill-safety-auditor/releases/latest/download/skill-safety-auditor.skill"
+                 class="btn btn-primary" target="_blank" rel="noopener noreferrer">↓ Download Skill Safety Auditor<span class="sr-only"> (opens in new tab)</span></a>
+            </div>
           </div>
-          <p class="os-label" style="margin-top:12px;">Windows — PowerShell</p>
-          <div class="pre-wrap">
-            <pre>Expand-Archive -Path "$env:USERPROFILE\Downloads\skill-safety-auditor.skill" -DestinationPath "$env:USERPROFILE\.claude\skills\skill-safety-auditor"</pre>
-            <button class="copy-btn" onclick="copyPre(this)" aria-label="Copy command">copy</button>
+        </div>
+        <div class="step">
+          <div class="step-num" aria-hidden="true">2</div>
+          <div class="step-body">
+            <p><strong>Install it</strong></p>
+            <p>Open Terminal (Mac) or PowerShell (Windows) and paste the command for your system. This copies the skill into the folder where Claude Code looks for skills.</p>
+            <p class="os-label">Mac — Terminal</p>
+            <div class="pre-wrap">
+              <pre>unzip ~/Downloads/skill-safety-auditor.skill -d ~/.claude/skills/skill-safety-auditor</pre>
+              <button class="copy-btn" onclick="copyPre(this)" aria-label="Copy command">copy</button>
+            </div>
+            <p class="os-label" style="margin-top:12px;">Windows — PowerShell</p>
+            <div class="pre-wrap">
+              <pre>Expand-Archive -Path "$env:USERPROFILE\Downloads\skill-safety-auditor.skill" -DestinationPath "$env:USERPROFILE\.claude\skills\skill-safety-auditor"</pre>
+              <button class="copy-btn" onclick="copyPre(this)" aria-label="Copy command">copy</button>
+            </div>
+            <p style="margin-top:12px;">When the command finishes with no error, the skill is installed. Open Claude Code and you're ready to go.</p>
           </div>
-          <p style="margin-top:12px;">When the command finishes with no error, the skill is installed. Open Claude Code and you're ready to go.</p>
         </div>
       </div>
     </div>
@@ -1296,7 +1635,7 @@ Found in: SKILL.md frontmatter (allowed-tools includes "Write")
     <p style="color:var(--text-muted);margin-bottom:20px;">Open Claude Code and use whichever prompt matches your situation.</p>
 
     <div class="modes three">
-      <div class="mode-card">
+      <div class="mode-card mode-card--static">
         <span class="mode-label">Mode 1 — Before you download</span>
         <h4>Check a skill before anything touches your machine</h4>
         <p>Replace the URL with the skill you want to check:</p>
@@ -1305,7 +1644,7 @@ Found in: SKILL.md frontmatter (allowed-tools includes "Write")
           <button class="copy-btn" onclick="copyPre(this)" aria-label="Copy prompt">copy</button>
         </div>
       </div>
-      <div class="mode-card">
+      <div class="mode-card mode-card--static">
         <span class="mode-label">Mode 2 — Downloaded, not installed</span>
         <h4>Check a .skill file before you install it</h4>
         <p>Replace the path with the location of your file:</p>
@@ -1314,7 +1653,7 @@ Found in: SKILL.md frontmatter (allowed-tools includes "Write")
           <button class="copy-btn" onclick="copyPre(this)" aria-label="Copy prompt">copy</button>
         </div>
       </div>
-      <div class="mode-card">
+      <div class="mode-card mode-card--static">
         <span class="mode-label">Mode 3 — Already installed</span>
         <h4>Check a skill that's already installed</h4>
         <p>Replace the skill name with the one you want to audit:</p>
@@ -1328,6 +1667,130 @@ Found in: SKILL.md frontmatter (allowed-tools includes "Write")
     <p style="margin-top:24px;color:var(--text-muted);font-size:0.9rem;">
       Claude runs all 14 checks and returns a plain-English report. If anything needs attention, the auditor walks you through exactly what to fix step by step.
     </p>
+  </div>
+</section>
+
+<!-- ── FAQ ────────────────────────────────────────────── -->
+<section id="faq" aria-labelledby="faq-heading">
+  <div class="container">
+    <p class="section-eyebrow">FAQ</p>
+    <h2 id="faq-heading">Common questions</h2>
+
+    <div class="faq-list">
+
+      <div class="faq-item" id="faq-1">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-1-answer" onclick="toggleFaq('faq-1')">
+          What is a Claude Code skill?
+          <span class="faq-chevron" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 6L8 11L13 6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </button>
+        <div class="faq-answer" id="faq-1-answer" role="region" aria-labelledby="faq-1-btn">
+          <div class="faq-answer-inner">
+            Skills are small text files that tell Claude how to behave — what tools to use, how to respond, and what to do automatically. Claude reads them as trusted instructions, the same way it reads a message from you.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" id="faq-1b">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-1b-answer" onclick="toggleFaq('faq-1b')">
+          What's the difference between a skill and a plugin?
+          <span class="faq-chevron" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 6L8 11L13 6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </button>
+        <div class="faq-answer" id="faq-1b-answer" role="region" aria-labelledby="faq-1b-btn">
+          <div class="faq-answer-inner">
+            A skill is the actual set of instructions Claude follows — a text file (or folder of files) that defines behavior, tools, and prompts. A plugin is a distribution package that makes a skill installable from the Claude Code marketplace in one command. The plugin wraps the skill and handles versioning and updates; the skill is what Claude actually reads and executes.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" id="faq-2">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-2-answer" onclick="toggleFaq('faq-2')">
+          What security risks does Skill Safety Auditor check for?
+          <span class="faq-chevron" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 6L8 11L13 6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </button>
+        <div class="faq-answer" id="faq-2-answer" role="region" aria-labelledby="faq-2-btn">
+          <div class="faq-answer-inner">
+            Skill Safety Auditor runs 14 checks across four categories: credential and API key access, shell commands that affect your terminal, override instructions that change how Claude behaves, and source verification to confirm your copy matches what the original author published.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" id="faq-3">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-3-answer" onclick="toggleFaq('faq-3')">
+          Do I need to install Skill Safety Auditor before I can use it to check a skill?
+          <span class="faq-chevron" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 6L8 11L13 6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </button>
+        <div class="faq-answer" id="faq-3-answer" role="region" aria-labelledby="faq-3-btn">
+          <div class="faq-answer-inner">
+            Yes, but it takes under a minute. Install it once via the Claude Code marketplace plugin or by downloading the <code>.skill</code> file, then use it to audit any skill before or after download.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" id="faq-4">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-4-answer" onclick="toggleFaq('faq-4')">
+          Can I audit a skill I've already installed?
+          <span class="faq-chevron" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 6L8 11L13 6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </button>
+        <div class="faq-answer" id="faq-4-answer" role="region" aria-labelledby="faq-4-btn">
+          <div class="faq-answer-inner">
+            Yes. Point the auditor at the skill's folder in your Claude Code skills directory and it reads the live files directly. This is Mode 3 of the three audit modes.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" id="faq-5">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-5-answer" onclick="toggleFaq('faq-5')">
+          Is Skill Safety Auditor free?
+          <span class="faq-chevron" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 6L8 11L13 6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </button>
+        <div class="faq-answer" id="faq-5-answer" role="region" aria-labelledby="faq-5-btn">
+          <div class="faq-answer-inner">
+            Yes. Skill Safety Auditor is completely free, requires no account, and returns results in under 60 seconds. It is open source under the MIT license.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item" id="faq-6">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-6-answer" onclick="toggleFaq('faq-6')">
+          Has the Skill Safety Auditor itself been audited for security?
+          <span class="faq-chevron" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 6L8 11L13 6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </button>
+        <div class="faq-answer" id="faq-6-answer" role="region" aria-labelledby="faq-6-btn">
+          <div class="faq-answer-inner">
+            Yes. The auditor has been run against itself publicly. It uses exactly three read-only tools (<strong>Read</strong>, <strong>WebFetch</strong>, <strong>Glob</strong>), contains no bundled scripts, makes no override claims, and is published directly by the author with full source available on GitHub. See the <a href="#self-audit">Proof section</a> for the full breakdown.
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -1356,7 +1819,8 @@ Found in: SKILL.md frontmatter (allowed-tools includes "Write")
   <div class="container">
     <div class="footer-inner">
       <div class="footer-links">
-        <a href="https://github.com/mtthwmllr/skill-safety-auditor" target="_blank" rel="noopener noreferrer">View Skill Safety Auditor Source on GitHub<span class="sr-only"> (opens in new tab)</span></a>
+        <a href="https://github.com/mtthwmllr/skill-safety-auditor" target="_blank" rel="noopener noreferrer">Skill Source on GitHub<span class="sr-only"> (opens in new tab)</span></a>
+        <a href="https://github.com/mtthwmllr/skill-safety-auditor-plugin" target="_blank" rel="noopener noreferrer">Plugin Source on GitHub<span class="sr-only"> (opens in new tab)</span></a>
       </div>
       <a href="https://www.w3.org/WAI/WCAG2AA-Conformance" title="Explanation of WCAG 2 Level AA conformance" target="_blank" rel="noopener noreferrer">
         <img height="31" width="88" src="https://www.w3.org/WAI/WCAG21/wcag2.1AA-blue-v.png" alt="Level AA conformance, W3C Web Content Accessibility Guidelines 2.1"> <span class="sr-only"> (opens in new tab)</span>
@@ -1382,6 +1846,57 @@ Found in: SKILL.md frontmatter (allowed-tools includes "Write")
       document.body.removeChild(ta);
       showCopied(btn);
     });
+  }
+
+  function toggleGithubMenu(e) {
+    e.stopPropagation();
+    const menu = document.getElementById('github-menu');
+    const btn = e.currentTarget;
+    const open = menu.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? 'GitHub ↑' : 'GitHub ↓';
+    btn.innerHTML = (open ? 'GitHub ↑' : 'GitHub ↓') + '<span class="sr-only"> — choose repository</span>';
+  }
+
+  document.addEventListener('click', function() {
+    const menu = document.getElementById('github-menu');
+    const btn = document.querySelector('.nav-github-btn');
+    if (menu && menu.classList.contains('open')) {
+      menu.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+      btn.innerHTML = 'GitHub ↓<span class="sr-only"> — choose repository</span>';
+    }
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      const menu = document.getElementById('github-menu');
+      const btn = document.querySelector('.nav-github-btn');
+      if (menu && menu.classList.contains('open')) {
+        menu.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.innerHTML = 'GitHub ↓<span class="sr-only"> — choose repository</span>';
+        btn.focus();
+      }
+    }
+  });
+
+  function switchTab(id) {
+    document.querySelectorAll('.tab-btn').forEach(b => {
+      const active = b.id === 'tab-btn-' + id;
+      b.classList.toggle('active', active);
+      b.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    document.querySelectorAll('.tab-panel').forEach(p => {
+      p.classList.toggle('active', p.id === 'tab-' + id);
+    });
+  }
+
+  function toggleFaq(id) {
+    const item = document.getElementById(id);
+    const btn = item.querySelector('.faq-question');
+    const isOpen = item.classList.toggle('open');
+    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
   }
 
   function showCopied(btn) {
