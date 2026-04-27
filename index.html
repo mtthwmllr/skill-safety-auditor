@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0RPLW5GHBM"></script>
+  <!-- Google Analytics — loads only after cookie consent -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-0RPLW5GHBM');
+  function loadGA() {
+    if (window._gaLoaded) return;
+    window._gaLoaded = true;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-0RPLW5GHBM';
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', 'G-0RPLW5GHBM', { 'anonymize_ip': true });
+  }
+
+  if (localStorage.getItem('cookie_consent') === 'accepted') {
+    loadGA();
+  }
 </script>
 
   <meta charset="UTF-8">
@@ -1198,6 +1209,39 @@
         transition-duration: .01ms !important;
       }
     }
+
+    /* ── Cookie consent ──────────────────────── */
+    #cookie-banner {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 500;
+      background: #1A2A1B;
+      border-top: 1px solid rgba(255,255,255,.10);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 0.82rem;
+      color: #87A882;
+    }
+    #cookie-banner p { margin: 0; flex: 1; min-width: 200px; color: #87A882; }
+    #cookie-banner a { color: var(--accent-mid); }
+    .cookie-actions { display: flex; gap: 8px; flex-shrink: 0; }
+    .cookie-btn {
+      padding: 7px 16px;
+      border-radius: var(--radius);
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all .15s;
+    }
+    .cookie-btn-accept { background: var(--accent); color: #fff; }
+    .cookie-btn-accept:hover { background: var(--accent-hover); }
+    .cookie-btn-decline { background: transparent; color: #87A882; border: 1px solid rgba(255,255,255,.15); }
+    .cookie-btn-decline:hover { background: rgba(255,255,255,.07); color: #EFF5EE; }
   </style>
 </head>
 <body>
@@ -1219,7 +1263,7 @@
       <a href="#faq">FAQ</a>
       <div class="nav-github-dropdown" id="nav-github">
         <button class="nav-cta nav-github-btn" aria-haspopup="true" aria-expanded="false" aria-controls="github-menu" onclick="toggleGithubMenu(event)">
-          GitHub ↓<span class="sr-only"> — choose repository</span>
+          <span class="nav-github-label" aria-hidden="true">GitHub ↓</span><span class="sr-only"> GitHub — choose repository</span>
         </button>
         <div class="nav-github-menu" id="github-menu" role="menu" aria-label="GitHub repositories">
           <a href="https://github.com/mtthwmllr/skill-safety-auditor"
@@ -1612,6 +1656,20 @@ Found in: SKILL.md frontmatter (allowed-tools includes "Write")
         <div class="step">
           <div class="step-num" aria-hidden="true">2</div>
           <div class="step-body">
+            <p><strong>Before you install, check what's inside</strong></p>
+            <p>Run this to see the list of files in the download:</p>
+            <p class="os-label">Mac — Terminal</p>
+            <div class="pre-wrap">
+              <pre>unzip -l ~/Downloads/skill-safety-auditor.skill</pre>
+              <button class="copy-btn" onclick="copyPre(this)" aria-label="Copy command">copy</button>
+            </div>
+            <p style="margin-top:12px;">Look over the list. If any path contains <code>..</code> or starts with <code>/</code>, stop — don't install. Those patterns mean the archive is trying to write files outside the folder it's supposed to stay in, which is a sign of a malicious file.</p>
+            <p>If everything looks normal (just regular filenames like <code>SKILL.md</code>, <code>references/</code>, etc.), continue:</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" aria-hidden="true">3</div>
+          <div class="step-body">
             <p><strong>Install it</strong></p>
             <p>Open Terminal (Mac) or PowerShell (Windows) and paste the command for your system. This copies the skill into the folder where Claude Code looks for skills.</p>
             <p class="os-label">Mac — Terminal</p>
@@ -1850,14 +1908,17 @@ Found in: SKILL.md frontmatter (allowed-tools includes "Write")
     });
   }
 
+  function setGithubBtnLabel(btn, open) {
+    btn.querySelector('.nav-github-label').textContent = open ? 'GitHub ↑' : 'GitHub ↓';
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+
   function toggleGithubMenu(e) {
     e.stopPropagation();
     const menu = document.getElementById('github-menu');
     const btn = e.currentTarget;
     const open = menu.classList.toggle('open');
-    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    btn.textContent = open ? 'GitHub ↑' : 'GitHub ↓';
-    btn.innerHTML = (open ? 'GitHub ↑' : 'GitHub ↓') + '<span class="sr-only"> — choose repository</span>';
+    setGithubBtnLabel(btn, open);
   }
 
   document.addEventListener('click', function() {
@@ -1865,8 +1926,7 @@ Found in: SKILL.md frontmatter (allowed-tools includes "Write")
     const btn = document.querySelector('.nav-github-btn');
     if (menu && menu.classList.contains('open')) {
       menu.classList.remove('open');
-      btn.setAttribute('aria-expanded', 'false');
-      btn.innerHTML = 'GitHub ↓<span class="sr-only"> — choose repository</span>';
+      setGithubBtnLabel(btn, false);
     }
   });
 
@@ -1876,8 +1936,7 @@ Found in: SKILL.md frontmatter (allowed-tools includes "Write")
       const btn = document.querySelector('.nav-github-btn');
       if (menu && menu.classList.contains('open')) {
         menu.classList.remove('open');
-        btn.setAttribute('aria-expanded', 'false');
-        btn.innerHTML = 'GitHub ↓<span class="sr-only"> — choose repository</span>';
+        setGithubBtnLabel(btn, false);
         btn.focus();
       }
     }
@@ -1912,6 +1971,30 @@ Found in: SKILL.md frontmatter (allowed-tools includes "Write")
       btn.setAttribute('aria-label', origLabel);
       btn.classList.remove('copied');
     }, 2000);
+  }
+</script>
+
+<!-- ── Cookie consent banner ───────────────────── -->
+<div id="cookie-banner" role="region" aria-label="Cookie consent" style="display:none">
+  <p>This site uses Google Analytics to collect anonymous usage data. <a href="/privacy">Privacy policy</a></p>
+  <div class="cookie-actions">
+    <button class="cookie-btn cookie-btn-decline" onclick="cookieConsent(false)">Decline</button>
+    <button class="cookie-btn cookie-btn-accept" onclick="cookieConsent(true)">Accept</button>
+  </div>
+</div>
+
+<script>
+  (function() {
+    var consent = localStorage.getItem('cookie_consent');
+    if (!consent) {
+      document.getElementById('cookie-banner').style.display = 'flex';
+    }
+  })();
+
+  function cookieConsent(accepted) {
+    localStorage.setItem('cookie_consent', accepted ? 'accepted' : 'declined');
+    document.getElementById('cookie-banner').style.display = 'none';
+    if (accepted) loadGA();
   }
 </script>
 
