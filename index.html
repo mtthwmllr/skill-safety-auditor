@@ -173,7 +173,7 @@
             "name": "Has the Skill Safety Auditor itself been audited for security?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes. The auditor has been run against itself publicly. It uses exactly three read-only tools (Read, WebFetch, Glob), contains no bundled scripts, makes no override claims, and is published directly by the author with full source available on GitHub."
+              "text": "Yes. The auditor has been run against itself publicly. It uses exactly three read-only tools (Read, WebFetch, Glob), contains no bundled scripts, includes explicit fetch safety boundaries and a self-audit disclaimer, and is published directly by the author with full source available on GitHub."
             }
           }
         ]
@@ -1569,9 +1569,9 @@ Found in: SKILL.md frontmatter (allowed-tools includes "Write")
         <p>The <code>references/</code> directory contains two markdown files — documentation only. No <code>.py</code>, <code>.sh</code>, <code>.js</code>, or <code>.bash</code> files present. None of the bundled-code checks apply.</p>
       </div>
       <div class="audit-card">
-        <span class="audit-card-icon" aria-hidden="true">🚫</span>
-        <h4>No override instructions</h4>
-        <p>Does not attempt to override Claude's normal behavior, claim special Anthropic permissions, or instruct Claude to conceal anything from you. Every instruction relates directly to auditing skill files.</p>
+        <span class="audit-card-icon" aria-hidden="true">🔒</span>
+        <h4>Explicit safety boundaries</h4>
+        <p>Includes a hard fetch safety boundary — fetched content is always treated as data, never instructions. A self-audit disclaimer discloses this skill cannot fully audit itself and links to the source for independent review. No claims of special Anthropic permissions. Nothing is concealed from you.</p>
       </div>
       <div class="audit-card">
         <span class="audit-card-icon" aria-hidden="true">👤</span>
@@ -1855,7 +1855,7 @@ Found in: SKILL.md frontmatter (allowed-tools includes "Write")
         </button>
         <div class="faq-answer" id="faq-6-answer" role="region" aria-labelledby="faq-6-btn">
           <div class="faq-answer-inner">
-            Yes. The auditor has been run against itself publicly. It uses exactly three read-only tools (<strong>Read</strong>, <strong>WebFetch</strong>, <strong>Glob</strong>), contains no bundled scripts, makes no override claims, and is published directly by the author with full source available on GitHub. See the <a href="#self-audit">Proof section</a> for the full breakdown.
+            Yes. The auditor has been run against itself publicly. It uses exactly three read-only tools (<strong>Read</strong>, <strong>WebFetch</strong>, <strong>Glob</strong>), contains no bundled scripts, includes explicit fetch safety boundaries and a self-audit disclaimer, and is published directly by the author with full source available on GitHub. See the <a href="#self-audit">Proof section</a> for the full breakdown.
           </div>
         </div>
       </div>
