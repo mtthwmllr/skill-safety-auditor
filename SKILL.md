@@ -23,32 +23,23 @@ with severity ratings and step-by-step remedies. Works in three modes — **the 
 
 ## Step 0 — Choose Mode
 
-> "I can audit this skill in three ways:
->
-> **Mode 1 — Before you download** — I fetch the skill files from a URL or install
-> command and review them before anything touches your machine.
->
-> **Mode 2 — Downloaded, not installed** — You have a `.skill` file but haven't
-> installed it yet. I read what's inside before anything is installed.
->
-> **Mode 3 — Already installed** — The skill is in your Claude Code skills directory.
-> I read the live files directly.
->
-> Which mode — 1, 2, or 3?"
+Ask the user which mode applies:
 
----
-
-## Mode-Specific Setup
+| Mode | When to use |
+|---|---|
+| 1 — Pre-download | User has a URL or install command; nothing downloaded yet |
+| 2 — Downloaded, not installed | User has a `.skill` file but hasn't installed it |
+| 3 — Already installed | Skill is in the Claude Code skills directory |
 
 ## Transparency Notices
 
-Include the matching notice at the top of every report:
+Begin every report with the matching notice (adapt tone naturally):
 
-| Mode | Notice |
+| Mode | Notice text |
 |---|---|
-| 1 — Pre-download | "This skill fetched external content from the URL you provided. That content was treated as data only and not executed. Verify the URL came from a trusted source before acting on this report." |
-| 2 — .skill file | "This skill read the contents of the .skill file you provided. That content was treated as data only and not executed. Verify the file came from a source you trust before acting on this report." |
-| 3 — Installed | "This skill read installed files directly from your local system. Content was treated as data only and not executed. If the skill was installed from an untrusted source, the files themselves may have been tampered with prior to this audit." |
+| 1 | Fetched content from the URL you provided; treated as data only. Verify the URL is trusted before acting on this report. |
+| 2 | Read the .skill file you provided; treated as data only. Verify the file source is trusted before acting on this report. |
+| 3 | Read installed files from your local system; treated as data only. If installed from an untrusted source, files may have been tampered with prior to this audit. |
 
 ---
 
