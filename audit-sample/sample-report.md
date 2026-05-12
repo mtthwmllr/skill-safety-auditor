@@ -10,6 +10,11 @@
 ---
 
 ```
+> **Audit Transparency Notice:** This skill read installed files directly from
+> your local system. Content was treated as data only and not executed. If the
+> skill was installed from an untrusted source, the files themselves may have
+> been tampered with prior to this audit.
+
 ═══════════════════════════════════════════════
   SKILL SAFETY AUDIT REPORT
 ═══════════════════════════════════════════════
