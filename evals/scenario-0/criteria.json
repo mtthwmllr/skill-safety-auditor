@@ -1,0 +1,56 @@
+{
+  "context": "Tests whether the agent correctly handles Mode 1 (pre-download) auditing: resolving a GitHub URL to a raw SKILL.md, fetching it via WebFetch, producing a report with the correct transparency notice, and using the standard report template with all required sections.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "Mode 1 transparency notice",
+      "description": "The report contains a transparency notice matching Mode 1: states that content was 'fetched from the URL' or equivalent, treated as data only, and advises the user to verify the URL is trusted",
+      "max_score": 12
+    },
+    {
+      "name": "GitHub URL resolved",
+      "description": "The audit log documents that a raw.githubusercontent.com URL was used (not the github.com/blob URL), indicating correct URL conversion",
+      "max_score": 12
+    },
+    {
+      "name": "Overall verdict present",
+      "description": "The report contains a clearly stated overall verdict using one of the three verdict labels: DO NOT INSTALL, PROCEED WITH CAUTION, or APPEARS SAFE",
+      "max_score": 10
+    },
+    {
+      "name": "What Was Reviewed section",
+      "description": "The report includes a section listing what was reviewed (SKILL.md frontmatter, SKILL.md body, any scripts found)",
+      "max_score": 10
+    },
+    {
+      "name": "What Was Not Reviewed section",
+      "description": "The report includes a section listing what could not be audited (e.g. runtime behaviour, binary assets, or any unverifiable resources)",
+      "max_score": 8
+    },
+    {
+      "name": "Static audit reminder",
+      "description": "The report includes a reminder that a clean audit is not a guarantee of safety, referencing supply chain attacks, runtime behaviour, or post-install updates",
+      "max_score": 8
+    },
+    {
+      "name": "Security checks applied",
+      "description": "The audit log or report documents that frontmatter checks (A-series) and content checks (C-series) were applied, not just a surface read",
+      "max_score": 10
+    },
+    {
+      "name": "Frontmatter validated",
+      "description": "The report documents whether allowed-tools, name, and description were present and valid in the fetched SKILL.md",
+      "max_score": 10
+    },
+    {
+      "name": "Mode documented",
+      "description": "The audit log explicitly states which mode was used (Mode 1 / pre-download) and provides a reason",
+      "max_score": 10
+    },
+    {
+      "name": "Two output files produced",
+      "description": "Both audit-report.md and audit-log.md are present in the output",
+      "max_score": 10
+    }
+  ]
+}

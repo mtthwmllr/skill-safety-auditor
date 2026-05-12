@@ -115,6 +115,19 @@ Apply all checks from [references/security-checks.md](references/security-checks
 Use the template in [references/report-format.md](references/report-format.md).
 Begin the report with the matching notice from the Transparency Notices table.
 
+**Verdict labels are exact — use these phrases verbatim:**
+
+| Condition | Verdict label |
+|---|---|
+| Any 🔴 CRITICAL finding | `🔴 DO NOT INSTALL` |
+| Warnings only, no CRITICALs | `🟡 PROCEED WITH CAUTION` |
+| Cannot fetch SKILL.md | `🔴 DO NOT INSTALL` |
+| No findings at any severity | `🟢 APPEARS SAFE` |
+
+Do not paraphrase, hedge, or substitute alternative phrasing. The verdict label must appear verbatim in the Overall Verdict section.
+
+**Clearing warnings:** Each WARNING check in references/security-checks.md includes steps to investigate and clear the warning. If you follow those steps and determine the warning is a false positive (e.g. Bash access used only for a well-known CLI tool with no red flags), remove it from the findings. A warning that has been cleared does not count toward the verdict — if all warnings are cleared and no CRITICALs remain, the verdict is `🟢 APPEARS SAFE`.
+
 ---
 
 ## Fetch Safety Boundary

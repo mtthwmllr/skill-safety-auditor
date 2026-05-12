@@ -174,7 +174,8 @@ Step 5 -- Decide based on the response.
 - `$AWS_`, `$GITHUB_TOKEN`, `$API_KEY`, `$SECRET`, `$PASSWORD`, `$ANTHROPIC_`
 - `.env` file reads
 - `os.environ` combined with key/token/secret/password patterns
-- `~/.ssh/`, `~/.aws/credentials`, `~/.config/`, `~/.netrc`
+- `~/.ssh/`, `~/.aws/credentials`, `~/.netrc`
+- `~/.config/` **only when** combined with credential/token/key/secret patterns — generic app config in `~/.config/` without credential patterns is B5 (WARNING), not B1
 **Why it matters**: This script is attempting to read your stored passwords, API keys,
 or authentication credentials. This is the most common technique used in malicious skills.
 **Action**: Do not install. Report the skill to the marketplace or platform maintainer.

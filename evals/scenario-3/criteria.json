@@ -1,0 +1,61 @@
+{
+  "context": "Tests whether the agent correctly audits an already-installed skill (Mode 3), applies the correct transparency notice, runs all checks, reaches an APPEARS SAFE verdict for a clean skill, and produces a thorough compliance document listing what was and was not reviewed.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "APPEARS SAFE verdict",
+      "description": "The report states an APPEARS SAFE verdict (no significant issues detected)",
+      "max_score": 10
+    },
+    {
+      "name": "Mode 3 transparency notice",
+      "description": "The report contains a transparency notice matching Mode 3: states that installed files from the local system were read, treated as data only, and notes that files may have been tampered with prior to audit if installed from untrusted source",
+      "max_score": 12
+    },
+    {
+      "name": "A1 Bash checked and noted",
+      "description": "The report notes that Bash is present in allowed-tools and evaluates whether it warrants a warning (the skill's description of running git log provides justification, so this may be cleared or flagged at the auditor's discretion — either is acceptable if reasoning is shown)",
+      "max_score": 10
+    },
+    {
+      "name": "No scripts found noted",
+      "description": "The report states that no bundled scripts were found in scripts/, references/, or assets/ directories (since none are provided)",
+      "max_score": 8
+    },
+    {
+      "name": "C-series checks applied",
+      "description": "The report documents that SKILL.md content was checked for safety override instructions (C1), false permission claims (C2), and concealment instructions (C3), and found none",
+      "max_score": 10
+    },
+    {
+      "name": "D-series checks applied",
+      "description": "The report documents that provenance checks (D-series) were considered, even if limited by Mode 3",
+      "max_score": 8
+    },
+    {
+      "name": "Frontmatter validated",
+      "description": "The report confirms that name, description, and allowed-tools are all present and valid in the SKILL.md frontmatter",
+      "max_score": 10
+    },
+    {
+      "name": "What Was Reviewed section",
+      "description": "The report lists SKILL.md frontmatter and SKILL.md body in the reviewed section",
+      "max_score": 8
+    },
+    {
+      "name": "What Was Not Reviewed section",
+      "description": "The report lists runtime behaviour and/or notes that Mode 3 cannot verify pre-install tamper",
+      "max_score": 8
+    },
+    {
+      "name": "Static audit reminder",
+      "description": "The report includes the standard reminder that a clean audit is not a guarantee of safety",
+      "max_score": 8
+    },
+    {
+      "name": "Compliance output file",
+      "description": "Output is in a file called compliance-audit.md",
+      "max_score": 8
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "context": "Tests whether the agent correctly identifies WARNING-level findings in a Mode 2 (downloaded, not installed) audit: Bash access (A1), overly broad tool list (A4), script with file access outside working directory (B5), and outbound network calls (B2 standalone). Verdict should be PROCEED WITH CAUTION. Mode 2 transparency notice should appear.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "PROCEED WITH CAUTION verdict",
+      "description": "The report states a PROCEED WITH CAUTION verdict (or equivalent — warnings found, no criticals)",
+      "max_score": 10
+    },
+    {
+      "name": "Mode 2 transparency notice",
+      "description": "The report contains a transparency notice matching Mode 2: states the .skill file or extracted file was read, treated as data only, and advises verifying the file source is trusted",
+      "max_score": 10
+    },
+    {
+      "name": "A1 Bash access flagged",
+      "description": "The report flags Bash in the allowed-tools list as a warning (A1 or equivalent)",
+      "max_score": 10
+    },
+    {
+      "name": "A4 broad tool list flagged",
+      "description": "The report flags the broad tool list (Read Write Bash WebFetch Glob Edit = 6 tools) as a warning (A4 or equivalent)",
+      "max_score": 10
+    },
+    {
+      "name": "B5 out-of-directory access flagged",
+      "description": "The report flags file access outside the working directory, specifically the script's reference to ~/.config/report-tool/config.json",
+      "max_score": 12
+    },
+    {
+      "name": "Script reviewed",
+      "description": "The report explicitly states that scripts/format_report.sh was read and reviewed",
+      "max_score": 8
+    },
+    {
+      "name": "Remediation steps included",
+      "description": "The report includes at least one concrete remediation step for at least one warning (not just identifying the issue)",
+      "max_score": 10
+    },
+    {
+      "name": "Plain-language framing",
+      "description": "The report uses plain-language explanations appropriate for a non-technical reader (the product manager), not just technical check codes",
+      "max_score": 10
+    },
+    {
+      "name": "What Was Reviewed section",
+      "description": "The report lists both SKILL.md and the script (format_report.sh) in the reviewed section",
+      "max_score": 10
+    },
+    {
+      "name": "Static audit reminder",
+      "description": "The report includes the standard reminder that a clean or cautionary audit is not a guarantee of safety",
+      "max_score": 10
+    }
+  ]
+}
