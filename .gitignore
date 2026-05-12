@@ -1,0 +1,8 @@
+.agents/
+.claude/
+.tessl/
+.vscode/
+.github/skills/
+.mcp.json
+*.tgz
+*.skill.bak
