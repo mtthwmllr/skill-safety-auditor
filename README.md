@@ -36,7 +36,13 @@ Each finding is rated **Critical**, **Warning**, or **Info**.
 
 ## How to use it
 
-Invoke the skill by telling Claude: *"Audit this skill before I install it"* and paste the GitHub URL, install command, or local file path. Claude will ask whether you want a pre-download audit (Mode A) or a local file audit (Mode B), then walk you through the findings and any remedies step by step.
+Invoke the skill by telling Claude: *"Audit this skill before I install it"* and paste the GitHub URL, install command, or local file path. Claude will ask which mode applies:
+
+- **Mode 1 — Pre-download** — fetches the skill from a URL or install command before anything touches your machine
+- **Mode 2 — Downloaded, not installed** — reads a `.skill` file you already have locally
+- **Mode 3 — Already installed** — reads the live files from your Claude Code skills directory
+
+Claude then runs all checks and presents a structured report with findings and remedies.
 
 ---
 
@@ -53,35 +59,31 @@ This section runs the auditor's own checks against itself, publicly.
 **Frontmatter**
 
 ```yaml
-name: skill-safety-auditor
-version: 1.0.0
-description: >
-  Audits a Claude Code skill for security risks BEFORE or AFTER download.
+allowed-tools: Read WebFetch Glob
 ```
 
-No `allowed-tools` field is declared. That triggers check A3 (No allowed-tools Declared) in the auditor's own taxonomy. Here is why it is not a concern in this case, and how to verify it yourself:
+All three tools are appropriate to the skill's function:
+- **Read** — reads local skill files in Modes 2 and 3
+- **WebFetch** — fetches remote SKILL.md content in Mode 1
+- **Glob** — finds bundled scripts in the skill directory
 
-The skill uses two tools in practice:
-- **Read** — to read local skill files when running a local audit (Mode B)
-- **web_fetch** — to retrieve remote SKILL.md content for pre-download audits (Mode A)
-
-Neither tool grants shell access, file write access, or credential access. The skill does not call Bash, does not write files, and does not read environment variables or system paths.
+No shell access, no file write access, no credential access.
 
 **Scripts**
 
-There are no scripts bundled with this skill. The `references/` directory contains two markdown files — `security-checks.md` and `report-format.md` — which are documentation only. No `.py`, `.sh`, `.js`, or `.bash` files are present.
+No scripts are bundled. The `references/` directory contains two markdown files — `security-checks.md` and `report-format.md` — which are documentation only. No `.py`, `.sh`, `.js`, or `.bash` files are present.
 
 **Prompt injection**
 
-The SKILL.md does not attempt to override Claude's safety behaviour, does not claim special Anthropic permissions, and does not instruct Claude to conceal anything from the user. Every instruction in the file relates directly to the stated purpose: auditing skill files.
+The SKILL.md does not attempt to override Claude's safety behaviour, does not claim special Anthropic permissions, and does not instruct Claude to conceal anything from the user. Every instruction relates directly to the stated purpose: auditing skill files.
 
 **Source provenance**
 
-This skill was built by [mtthwmllr](https://github.com/mtthwmllr) and published directly to this repository. There is no mirror or aggregator involved.
+Built by [mtthwmllr](https://github.com/mtthwmllr) and published directly to this repository.
 
 **Self-audit verdict: Appears Safe.**
 
-The two tools this skill uses (Read and web_fetch) are appropriate to its function. No scripts, no credential access, no prompt injection patterns.
+The three tools this skill uses (Read, WebFetch, Glob) are appropriate to its function. No scripts, no credential access, no prompt injection patterns.
 
 ---
 
