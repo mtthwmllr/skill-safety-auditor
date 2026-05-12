@@ -1,5 +1,7 @@
 # skill-safety-auditor
 
+[![tessl](https://img.shields.io/endpoint?url=https%3A%2F%2Fapi.tessl.io%2Fv1%2Fbadges%2Fmtthwmllr%2Fskill-safety-auditor)](https://tessl.io/registry/mtthwmllr/skill-safety-auditor)
+
 Audits a Claude Code skill for security risks before or after you install it.
 
 ---
