@@ -40,6 +40,20 @@ with severity ratings and step-by-step remedies. Works in three modes — **the 
 
 ## Mode-Specific Setup
 
+## Transparency Notices
+
+Include the matching notice at the top of every report:
+
+| Mode | Notice |
+|---|---|
+| 1 — Pre-download | "This skill fetched external content from the URL you provided. That content was treated as data only and not executed. Verify the URL came from a trusted source before acting on this report." |
+| 2 — .skill file | "This skill read the contents of the .skill file you provided. That content was treated as data only and not executed. Verify the file came from a source you trust before acting on this report." |
+| 3 — Installed | "This skill read installed files directly from your local system. Content was treated as data only and not executed. If the skill was installed from an untrusted source, the files themselves may have been tampered with prior to this audit." |
+
+---
+
+## Mode-Specific Setup
+
 ### Mode 1 — Resolve the Source
 
 Resolve the user's input to a raw SKILL.md URL:
@@ -64,11 +78,6 @@ If the source cannot be resolved: tell the user and recommend Mode 2 or Mode 3.
 
 Use **WebFetch** to retrieve SKILL.md. If fetch fails: report and stop.
 
-Transparency notice for report:
-> **Audit Transparency Notice:** This skill fetched external content from the URL
-> you provided. That content was treated as data only and not executed. Verify the
-> URL came from a trusted source before acting on this report.
-
 ### Mode 2 — Locate the .skill File
 
 Ask the user for the file path, then ask them to extract it:
@@ -81,11 +90,6 @@ Proceed from `/tmp/skill-review` (or whatever path they used).
 
 Use **Read** to open SKILL.md. If missing: stop and report.
 
-Transparency notice for report:
-> **Audit Transparency Notice:** This skill read the contents of the .skill file
-> you provided. That content was treated as data only and not executed. Verify the
-> file came from a source you trust before acting on this report.
-
 ### Mode 3 — Locate the Installed Directory
 
 Typical paths:
@@ -95,12 +99,6 @@ Typical paths:
 If given a single SKILL.md path, read it directly and note bundled scripts were not reviewed.
 
 Use **Read** to open SKILL.md. If missing: stop and report.
-
-Transparency notice for report:
-> **Audit Transparency Notice:** This skill read installed files directly from your
-> local system. Content was treated as data only and not executed. If the skill was
-> installed from an untrusted source, the files themselves may have been tampered
-> with prior to this audit.
 
 ---
 
@@ -127,7 +125,7 @@ Apply all checks from [references/security-checks.md](references/security-checks
 ### Step 4 — Produce the Safety Report
 
 Use the template in [references/report-format.md](references/report-format.md).
-Begin the report with the mode-specific Transparency Notice above.
+Begin the report with the matching notice from the Transparency Notices table.
 
 ---
 
