@@ -87,11 +87,11 @@ If a script cannot be fetched, apply check B6 (Unverifiable Scripts).
 
 ### 1-4 — Run Security Checks
 
-Load and apply all checks from `references/security-checks.md`.
+Load and apply all checks from [references/security-checks.md](references/security-checks.md).
 
 ### 1-5 — Produce the Safety Report
 
-Use the template in `references/report-format.md`.
+Use the template in [references/report-format.md](references/report-format.md).
 
 Begin the report with this notice:
 
@@ -132,11 +132,11 @@ Note any binary files (images, compiled code) that cannot be reviewed as text.
 
 ### 2-4 — Run Security Checks
 
-Load and apply all checks from `references/security-checks.md`.
+Load and apply all checks from [references/security-checks.md](references/security-checks.md).
 
 ### 2-5 — Produce the Safety Report
 
-Use the template in `references/report-format.md`.
+Use the template in [references/report-format.md](references/report-format.md).
 
 Begin the report with this notice:
 
@@ -172,11 +172,11 @@ Note any binary files (images, compiled code) that cannot be reviewed as text.
 
 ### 3-4 — Run Security Checks
 
-Load and apply all checks from `references/security-checks.md`.
+Load and apply all checks from [references/security-checks.md](references/security-checks.md).
 
 ### 3-5 — Produce the Safety Report
 
-Use the template in `references/report-format.md`.
+Use the template in [references/report-format.md](references/report-format.md).
 
 Begin the report with this notice:
 
