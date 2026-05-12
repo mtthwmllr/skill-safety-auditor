@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.6.1] — May 2026
+
+### Fixed
+- Narrowed B1 (Credential Access) trigger: `~/.config/` alone no longer escalates to CRITICAL — only triggers when combined with credential/token/key/secret patterns. Generic app config paths now correctly classified as B5 (WARNING), preventing false DO NOT INSTALL verdicts.
+- Added warning-clearing rule: warnings investigated and found to be false positives no longer count toward the verdict. A skill with all warnings cleared and no CRITICALs now correctly receives APPEARS SAFE.
+
+### Added
+- Explicit verdict label table in SKILL.md — exact emoji+phrase required (DO NOT INSTALL / PROCEED WITH CAUTION / APPEARS SAFE)
+- Eval scenarios (`evals/`) covering all three audit modes, all check categories, and prompt injection resistance — 97% score, 1.28× uplift
+
 ## [1.6.0] — May 2026
 
 ### Changed

@@ -2,7 +2,7 @@
 
 [![tessl](https://img.shields.io/endpoint?url=https%3A%2F%2Fapi.tessl.io%2Fv1%2Fbadges%2Fmtthwmllr%2Fskill-safety-auditor)](https://tessl.io/registry/mtthwmllr/skill-safety-auditor)
 
-> **Why 90%?** Two points are deducted by Tessl's static scanner — not functional gaps. First, the bundled reference files (`security-checks.md`, `report-format.md`) are included and verified locally but undetectable by the scanner. Second, Mode 1 is flagged for fetching user-supplied URLs — which is intentional: you can't audit a skill before download without reading it. Both are documented as known limitations on the [security page](https://tessl.io/registry/mtthwmllr/skill-safety-auditor/security).
+> **Eval score: 97% · Uplift: 1.28×** — measured across 5 scenarios covering all three audit modes, all check categories, and prompt injection resistance.
 
 Audits a Claude Code skill for security risks before or after you install it.
 
