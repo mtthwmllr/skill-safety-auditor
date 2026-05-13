@@ -35,7 +35,7 @@ Step 2 -- Read each script.
 
     a) Does it read files from unusual locations?
        Red flags: paths containing `.ssh`, `.aws`, `.env`, `credentials`, `password`,
-       `token`, `secret`, or any path starting with `/etc/`, `/usr/`, or `~/.config/`.
+       `token`, `secret`, or any path starting with `/etc/` or `/usr/`.
 
     b) Does it send data over the internet?
        Red flags: `curl`, `wget`, `requests.get`, `fetch(`, `http.get`, `urllib`,
@@ -258,7 +258,7 @@ Step 1 -- Find every file path in the script.
 
 Step 2 -- Categorise each path.
   Green (expected): `./`, `../project/`, paths clearly within your working folder.
-  Yellow (check further): `~/Documents/`, `~/Downloads/`, any `~` path.
+  Yellow (flag as B5 WARNING): `~/Documents/`, `~/Downloads/`, `~/.config/`, any `~` path.
   Red (do not install): `~/.ssh/`, `~/.aws/`, `~/.env`, `/etc/`, `/usr/`, `/var/`.
 
 Step 3 -- For yellow paths, confirm the purpose.

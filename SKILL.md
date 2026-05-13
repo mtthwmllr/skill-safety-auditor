@@ -53,17 +53,13 @@ If the source cannot be resolved or the fetch fails: tell the user and stop.
 
 ### Mode 2 — Locate the .skill File
 
-Mode 2 applies when the user has a `.skill` file or has already extracted skill files to a local directory but has not installed them.
-
-Ask the user for the file path. If the `.skill` file hasn't been extracted yet, ask them to run:
+Applies when the user has a `.skill` file or extracted directory, not yet installed. Ask for the path. If not yet extracted:
 
 ```
 unzip ~/Downloads/skill-name.skill -d /tmp/skill-review
 ```
 
-Proceed from `/tmp/skill-review` (or whatever path they used).
-
-Use **Read** to open SKILL.md. If missing: stop and report.
+Use **Read** to open SKILL.md from that directory. If missing: stop and report.
 
 ### Mode 3 — Locate the Installed Directory
 
@@ -103,6 +99,8 @@ Apply ALL checks from [references/security-checks.md](references/security-checks
 Use the template in [references/report-format.md](references/report-format.md).
 Begin the report with the matching notice from the Transparency Notices table.
 
+If an audit log is requested, produce `audit-log.md` with: URLs fetched, mode used and why, frontmatter field validity (name/description/allowed-tools: present or missing), check series applied (A/B/C/D) and which triggered findings.
+
 **Verdict labels are exact — use these phrases verbatim:**
 
 | Condition | Verdict label |
@@ -114,7 +112,7 @@ Begin the report with the matching notice from the Transparency Notices table.
 
 Do not paraphrase, hedge, or substitute alternative phrasing. The verdict label must appear verbatim in the Overall Verdict section.
 
-**Clearing warnings:** Each WARNING check in references/security-checks.md includes steps to investigate and clear the warning. If you follow those steps and determine the warning is a false positive (e.g. Write access used only to produce an output file in the working directory, with no writes to system paths), remove it from the findings. A warning that has been cleared does not count toward the verdict — if all warnings are cleared and no CRITICALs remain, the verdict is `🟢 APPEARS SAFE`. Do not clear A1 (Bash) unless scripts have been read and contain no red flags per the A1 clearing steps.
+**Clearing warnings:** Always flag warnings in the report first. After flagging, walk the user through the clearing steps in references/security-checks.md. Only mark a warning cleared if the user has confirmed the investigation and you have determined it is a false positive. Do not pre-clear warnings silently. Do not clear A1 (Bash) unless scripts have been read and contain no red flags.
 
 ---
 
