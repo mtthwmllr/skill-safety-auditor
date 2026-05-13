@@ -79,8 +79,11 @@ Run these steps after completing mode-specific setup above.
 
 ### Step 1 — Validate SKILL.md
 
-Check for valid YAML frontmatter (`name`, `description`, `allowed-tools`).
-In the report or audit log, record whether each field is present and valid.
+Check for valid YAML frontmatter. For each of the three required fields, record its status explicitly in the audit log:
+- `name`: present / missing
+- `description`: present / missing
+- `allowed-tools`: present / missing — if present, list the tools declared
+
 If frontmatter is missing or invalid: flag as UNKNOWN RISK (check D4).
 
 ### Step 2 — Read Bundled Scripts
@@ -92,14 +95,24 @@ If a script cannot be fetched: apply check B6 (Unverifiable Scripts).
 
 ### Step 3 — Run Security Checks
 
-Apply ALL checks from [references/security-checks.md](references/security-checks.md) — do not stop early if a critical is found. In the report or audit log, note which check series were applied (A, B, C, D) and which triggered findings.
+Apply ALL checks from [references/security-checks.md](references/security-checks.md). **Do not stop early** — run every check regardless of how many criticals are found. This means:
+- A-series (frontmatter): A1, A2, A3, A4 — check every `allowed-tools` entry
+- B-series (scripts): B1–B6 — applied to every script found (or noted as N/A if no scripts)
+- C-series (prompt injection): C1, C2, C3, C4 — always run on SKILL.md body
+- D-series (provenance): D1–D4 — apply what is accessible given the mode
+
+In the audit log, record each series (A/B/C/D) with: whether it was applied, which specific checks triggered findings, and which were clean.
 
 ### Step 4 — Produce the Safety Report
 
 Use the template in [references/report-format.md](references/report-format.md).
 Begin the report with the matching notice from the Transparency Notices table.
 
-If an audit log is requested, produce `audit-log.md` with: URLs fetched, mode used and why, frontmatter field validity (name/description/allowed-tools: present or missing), check series applied (A/B/C/D) and which triggered findings.
+If an audit log is requested, produce `audit-log.md` with:
+- URLs fetched (or file paths read)
+- Mode used and why
+- Frontmatter field validity — one line per field: `name: present`, `description: present`, `allowed-tools: present — [list tools]`
+- Check series applied — list each series (A/B/C/D), whether it was applied, and which specific checks triggered findings vs were clean (e.g. "A-series: applied — A1 triggered (Bash), A2 clean, A3 clean, A4 triggered")
 
 **Verdict labels are exact — use these phrases verbatim:**
 

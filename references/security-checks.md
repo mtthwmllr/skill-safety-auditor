@@ -24,8 +24,11 @@ It becomes dangerous when combined with scripts that read your files or send dat
 Step 1 -- Find the scripts the skill runs.
   Look in the SKILL.md body for any lines referencing `scripts/` or filenames ending
   in `.py`, `.sh`, `.js`, or `.bash`. Write down every script filename you find.
-  If there are no scripts listed, the Bash access may be unused -- that is lower risk,
-  but still worth confirming with the maintainer (see Step 4).
+  If there are no scripts listed AND the SKILL.md body explicitly describes what
+  Bash/shell commands are run (e.g. "runs git log", "runs ffmpeg to convert files"):
+  proceed to Step 3 directly — you can evaluate the warning from the description alone.
+  If there are no scripts listed AND the body does not describe what Bash is used for:
+  this is unexplained access — keep the warning and go to Step 4.
 
 Step 2 -- Read each script.
   If you fetched the skill pre-download (Mode A), I can fetch each script for you --
@@ -45,9 +48,15 @@ Step 2 -- Read each script.
        Red flags: paths starting with `~/`, `/home/`, `/Users/`, `/etc/`, or `../ `.
 
 Step 3 -- Decide based on what you find.
-  - If you found none of the red flags above: the warning is likely a false positive.
-    The skill uses Bash for a legitimate purpose. You can proceed, but keep Step 4 in mind.
-  - If you found any red flags: escalate to CRITICAL. Do not install.
+  - If you found none of the red flags above AND the SKILL.md body clearly describes
+    what the Bash commands do (e.g. "runs git log", "runs a conversion tool"):
+    the warning can be cleared. Document the specific description that justifies it.
+  - If you found none of the red flags but the skill body does NOT explain what Bash
+    is used for: keep the warning — unexplained Bash access is not cleared by absence
+    of scripts alone.
+  - If the script triggered any other B-series finding (B1, B2, B4, or B5): do NOT
+    clear A1. A script with findings is not a clean script.
+  - If you found any B1 red flags: escalate to CRITICAL. Do not install.
 
 Step 4 -- (Optional but recommended) Ask the maintainer.
   If the skill is on GitHub, open the repository in your browser and click "Issues".
@@ -61,6 +70,7 @@ Step 4 -- (Optional but recommended) Ask the maintainer.
 ### A2 — Write / Edit Tool Access
 **Severity**: 🟡 WARNING
 **Triggers when**: `allowed-tools` includes `Write`, `Edit`, or `MultiEdit`
+**Always check**: Even if C-series criticals (prompt injection) were found, A2 must still be reported if Write/Edit/MultiEdit appear in `allowed-tools`. All A-series checks are independent of C-series findings.
 **Why it matters**: Write access means the skill can create or modify files on your
 computer. Legitimate skills use this to produce output files (documents, code, reports).
 The risk is when a skill writes to system locations or config files outside your project.
@@ -258,8 +268,12 @@ Step 1 -- Find every file path in the script.
 
 Step 2 -- Categorise each path.
   Green (expected): `./`, `../project/`, paths clearly within your working folder.
-  Yellow (flag as B5 WARNING): `~/Documents/`, `~/Downloads/`, `~/.config/`, any `~` path.
-  Red (do not install): `~/.ssh/`, `~/.aws/`, `~/.env`, `/etc/`, `/usr/`, `/var/`.
+  Yellow (flag as B5 WARNING): `~/Documents/`, `~/Downloads/`, any `~` path without
+    credential patterns. Note: `~/.config/` is always flagged as B5 WARNING — even
+    if it appears to be a benign config file. It is outside the working directory and
+    its contents cannot be fully verified in a static audit.
+  Red (do not install): `~/.ssh/`, `~/.aws/`, `~/.env`, `/etc/`, `/usr/`, `/var/`,
+    or any `~/.config/` path combined with credential/token/key/secret patterns (B1).
 
 Step 3 -- For yellow paths, confirm the purpose.
   Ask yourself: does the skill's stated job require accessing this location?
