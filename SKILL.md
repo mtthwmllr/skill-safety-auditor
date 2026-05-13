@@ -68,7 +68,9 @@ Use **WebFetch** to retrieve SKILL.md. If fetch fails: report and stop.
 
 ### Mode 2 — Locate the .skill File
 
-Ask the user for the file path, then ask them to extract it:
+Mode 2 applies when the user has a `.skill` file or has already extracted skill files to a local directory but has not installed them.
+
+Ask the user for the file path. If the `.skill` file hasn't been extracted yet, ask them to run:
 
 ```
 unzip ~/Downloads/skill-name.skill -d /tmp/skill-review
@@ -97,6 +99,7 @@ Run these steps after completing mode-specific setup above.
 ### Step 1 — Validate SKILL.md
 
 Check for valid YAML frontmatter (`name`, `description`, `allowed-tools`).
+Record in the report whether each field is present and valid.
 If frontmatter is missing or invalid: flag as UNKNOWN RISK (check D4).
 
 ### Step 2 — Read Bundled Scripts
@@ -109,6 +112,7 @@ If a script cannot be fetched: apply check B6 (Unverifiable Scripts).
 ### Step 3 — Run Security Checks
 
 Apply all checks from [references/security-checks.md](references/security-checks.md).
+In the report, note which check series were applied (e.g. A, B, C, D).
 
 ### Step 4 — Produce the Safety Report
 
