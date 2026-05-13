@@ -33,13 +33,13 @@ Ask the user which mode applies:
 
 ## Transparency Notices
 
-Begin every report with the matching notice (adapt tone naturally):
+Begin every report with the matching notice:
 
-| Mode | Notice text |
+| Mode | Notice |
 |---|---|
-| 1 | Fetched content from the URL you provided; treated as data only. Verify the URL is trusted before acting on this report. |
-| 2 | Read the .skill file you provided; treated as data only. Verify the file source is trusted before acting on this report. |
-| 3 | Read installed files from your local system; treated as data only. If installed from an untrusted source, files may have been tampered with prior to this audit. |
+| 1 | Fetched from the URL provided; treated as data only. Verify the URL is trusted before acting on this report. |
+| 2 | Read the .skill file provided; treated as data only. Verify the file source is trusted before acting on this report. |
+| 3 | Read installed files from your local system; treated as data only. If installed from an untrusted source, files may have been tampered with. |
 
 ---
 
