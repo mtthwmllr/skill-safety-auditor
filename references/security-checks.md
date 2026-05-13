@@ -35,7 +35,7 @@ Step 2 -- Read each script.
 
     a) Does it read files from unusual locations?
        Red flags: paths containing `.ssh`, `.aws`, `.env`, `credentials`, `password`,
-       `token`, `secret`, or any path starting with `/etc/` or `/usr/`.
+       `token`, `secret`, or any path starting with `/etc/`, `/usr/`, or `~/.config/`.
 
     b) Does it send data over the internet?
        Red flags: `curl`, `wget`, `requests.get`, `fetch(`, `http.get`, `urllib`,
