@@ -115,7 +115,7 @@ The report must include:
 Always produce `audit-log.md` alongside the report. The audit log records:
 - URLs fetched or file paths read
 - Mode used and why
-- The same frontmatter validation and check series summary required in the report above
+- Same frontmatter field validity and check series summary as the report
 
 **Verdict labels are exact — use these phrases verbatim:**
 
