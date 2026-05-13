@@ -126,7 +126,7 @@ Begin the report with the matching notice from the Transparency Notices table.
 
 Do not paraphrase, hedge, or substitute alternative phrasing. The verdict label must appear verbatim in the Overall Verdict section.
 
-**Clearing warnings:** Each WARNING check in references/security-checks.md includes steps to investigate and clear the warning. If you follow those steps and determine the warning is a false positive (e.g. Bash access used only for a well-known CLI tool with no red flags), remove it from the findings. A warning that has been cleared does not count toward the verdict — if all warnings are cleared and no CRITICALs remain, the verdict is `🟢 APPEARS SAFE`.
+**Clearing warnings:** Each WARNING check in references/security-checks.md includes steps to investigate and clear the warning. If you follow those steps and determine the warning is a false positive (e.g. Write access used only to produce an output file in the working directory, with no writes to system paths), remove it from the findings. A warning that has been cleared does not count toward the verdict — if all warnings are cleared and no CRITICALs remain, the verdict is `🟢 APPEARS SAFE`. Do not clear A1 (Bash) unless scripts have been read and contain no red flags per the A1 clearing steps.
 
 ---
 
