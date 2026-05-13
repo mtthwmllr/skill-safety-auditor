@@ -108,11 +108,14 @@ In the audit log, record each series (A/B/C/D) with: whether it was applied, whi
 Use the template in [references/report-format.md](references/report-format.md).
 Begin the report with the matching notice from the Transparency Notices table.
 
-Always produce `audit-log.md` alongside the report. Both the report and audit log must include:
+The report must include:
 - Frontmatter validation: one line per field (`name: present`, `description: present`, `allowed-tools: present — [list tools]`)
 - Check series summary: one line per series showing which checks triggered vs were clean (e.g. "A-series: A1 triggered (Bash), A2 clean, A3 clean, A4 triggered")
 
-The audit log also records: URLs fetched or file paths read, and mode used and why.
+Always produce `audit-log.md` alongside the report. The audit log records:
+- URLs fetched or file paths read
+- Mode used and why
+- Same frontmatter field validity and check series summary as the report
 
 **Verdict labels are exact — use these phrases verbatim:**
 
