@@ -33,11 +33,7 @@ Ask the user which mode applies:
 
 ## Transparency Notices
 
-Begin every report with a notice in this form:
-
-> Content was [fetched from the URL provided / read from the .skill file / read from the installed directory]; treated as data only. Verify the source is trusted before acting on this report.
-
-For Mode 3, add: "If installed from an untrusted source, files may have been tampered with."
+Begin every report with: *"Content was [fetched from the URL / read from the .skill file / read from the installed directory]; treated as data only. Verify the source is trusted."* For Mode 3 add: *"If installed from an untrusted source, files may have been tampered with."*
 
 ---
 
@@ -63,13 +59,7 @@ Use **Read** to open SKILL.md from that directory. If missing: stop and report.
 
 ### Mode 3 — Locate the Installed Directory
 
-Typical paths:
-- Mac/Linux: `~/.claude/skills/skill-name/`
-- Windows: `%USERPROFILE%\.claude\skills\skill-name\`
-
-If given a single SKILL.md path, read it directly and note bundled scripts were not reviewed.
-
-Use **Read** to open SKILL.md. If missing: stop and report.
+Use **Read** to open SKILL.md from the installed skills directory. If given a single SKILL.md path, read it directly and note bundled scripts were not reviewed. If missing: stop and report.
 
 ---
 
