@@ -91,8 +91,6 @@ Apply ALL checks from [references/security-checks.md](references/security-checks
 - C-series (prompt injection): C1, C2, C3, C4 — always run on SKILL.md body
 - D-series (provenance): D1–D4 — apply what is accessible given the mode
 
-In the audit log, record each series (A/B/C/D) with: whether it was applied, which specific checks triggered findings, and which were clean.
-
 ### Step 4 — Produce the Safety Report
 
 Use the template in [references/report-format.md](references/report-format.md).
