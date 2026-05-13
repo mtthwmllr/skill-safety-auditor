@@ -80,7 +80,7 @@ Run these steps after completing mode-specific setup above.
 ### Step 1 — Validate SKILL.md
 
 Check for valid YAML frontmatter (`name`, `description`, `allowed-tools`).
-In the audit log, record whether each field is present and valid.
+In the report or audit log, record whether each field is present and valid.
 If frontmatter is missing or invalid: flag as UNKNOWN RISK (check D4).
 
 ### Step 2 — Read Bundled Scripts
@@ -92,7 +92,7 @@ If a script cannot be fetched: apply check B6 (Unverifiable Scripts).
 
 ### Step 3 — Run Security Checks
 
-Apply ALL checks from [references/security-checks.md](references/security-checks.md) — do not stop early if a critical is found. In the audit log, note which check series were applied (A, B, C, D) and which triggered findings.
+Apply ALL checks from [references/security-checks.md](references/security-checks.md) — do not stop early if a critical is found. In the report or audit log, note which check series were applied (A, B, C, D) and which triggered findings.
 
 ### Step 4 — Produce the Safety Report
 
@@ -112,7 +112,7 @@ If an audit log is requested, produce `audit-log.md` with: URLs fetched, mode us
 
 Do not paraphrase, hedge, or substitute alternative phrasing. The verdict label must appear verbatim in the Overall Verdict section.
 
-**Clearing warnings:** Always flag warnings in the report first. After flagging, walk the user through the clearing steps in references/security-checks.md. Only mark a warning cleared if the user has confirmed the investigation and you have determined it is a false positive. Do not pre-clear warnings silently. Do not clear A1 (Bash) unless scripts have been read and contain no red flags.
+**Clearing warnings:** Always include warnings in the report. After investigating via the clearing steps in references/security-checks.md, mark a warning cleared if the evidence supports it — document what you checked and why it was cleared. Do not clear A1 (Bash) unless you have read the scripts and found no red flags (credential access, network calls, writes outside working directory).
 
 ---
 
